@@ -1,0 +1,81 @@
+@model LUXLocks_projekt.Models.AppointmentModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>AppointmentModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="AppointmentDate" class="control-label"></label>
+                <input asp-for="AppointmentDate" class="form-control" />
+                <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomerName" class="control-label"></label>
+                <input asp-for="CustomerName" class="form-control" />
+                <span asp-validation-for="CustomerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StylistModelId" class="control-label"></label>
+                <select asp-for="StylistModelId" class ="form-control" asp-items="ViewBag.StylistModelId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="TreatmentModelId" class="control-label"></label>
+                <select asp-for="TreatmentModelId" class ="form-control" asp-items="ViewBag.TreatmentModelId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="HairLength" class="control-label"></label>
+                <input asp-for="HairLength" class="form-control" />
+                <span asp-validation-for="HairLength" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HairType" class="control-label"></label>
+                <input asp-for="HairType" class="form-control" />
+                <span asp-validation-for="HairType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdditionalInfo" class="control-label"></label>
+                <input asp-for="AdditionalInfo" class="form-control" />
+                <span asp-validation-for="AdditionalInfo" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="SilentTreatment" /> @Html.DisplayNameFor(model => model.SilentTreatment)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookedBy" class="control-label"></label>
+                <input asp-for="BookedBy" class="form-control" />
+                <span asp-validation-for="BookedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
