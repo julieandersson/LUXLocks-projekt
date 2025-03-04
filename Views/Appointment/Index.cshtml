@@ -1,3 +1,7 @@
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
 @model IEnumerable<LUXLocks_projekt.Models.AppointmentModel>
 
 @{
@@ -85,9 +89,14 @@
                 @Html.DisplayFor(modelItem => item.BookedBy)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                @if (SignInManager.IsSignedIn(User))
+                {
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                <span> | </span>
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                <span> | </span>
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                }
             </td>
         </tr>
 }

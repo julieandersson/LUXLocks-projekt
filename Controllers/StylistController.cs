@@ -45,7 +45,7 @@ namespace LUXLocks_projekt.Controllers
         }
 
         // GET: Stylist/Create
-        // Lägga till en frisör kräver inloggning (ej relevent för kunder)
+        // Lägga till en frisör kräver inloggning
         [Authorize]
         public IActionResult Create()
         {
@@ -70,7 +70,7 @@ namespace LUXLocks_projekt.Controllers
         }
 
         // GET: Stylist/Edit/5
-        // Redigera frisör kräver inloggning (ej relevant för kunder)
+        // Redigera frisör kräver inloggning
         [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -124,7 +124,7 @@ namespace LUXLocks_projekt.Controllers
         }
 
         // GET: Stylist/Delete/5
-        // Radera frisör kräver inloggning (ej relevant för kunder)
+        // Radera frisör kräver inloggning
         [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {

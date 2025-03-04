@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace LUXLocks_projekt.Controllers
 {
-    [Authorize]
     public class AppointmentController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -22,6 +21,7 @@ namespace LUXLocks_projekt.Controllers
         }
 
         // GET: Appointment
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Appointments.Include(a => a.Stylist).Include(a => a.Treatment);
@@ -29,6 +29,7 @@ namespace LUXLocks_projekt.Controllers
         }
 
         // GET: Appointment/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -49,29 +50,13 @@ namespace LUXLocks_projekt.Controllers
         }
 
         // GET: Appointment/Create
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
-            // hitta den inloggade användaren i databasen för att kunna hämta användarens hårprofil
-            var user = await _context.Users
-                .FirstOrDefaultAsync(u => u.UserName == User.Identity!.Name);
-            if (user == null) return NotFound();
-
-            // hämtar användarens hårprofil från CustomerProfileModel
-            var userProfile = await _context.CustomerProfiles
-                .FirstOrDefaultAsync(p => p.UserId == user.Id);
-
-            // skapar en ny bokning med hårprofilen förifylls
-            var appointment = new AppointmentModel
-            {
-                HairLength = userProfile?.HairLength,
-                HairType = userProfile?.HairType,
-                AdditionalInfo = userProfile?.AdditionalInfo
-            };
 
             ViewData["StylistModelId"] = new SelectList(_context.Stylists, "Id", "Id");
             ViewData["TreatmentModelId"] = new SelectList(_context.Treatments, "Id", "Id");
 
-            return View(appointment);
+            return View();
         }
 
         // POST: Appointment/Create
@@ -89,7 +74,7 @@ namespace LUXLocks_projekt.Controllers
                 appointmentModel.BookedBy = User.Identity?.Name ?? "Unknown";
 
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             ViewData["StylistModelId"] = new SelectList(_context.Stylists, "Id", "Id", appointmentModel.StylistModelId);
             ViewData["TreatmentModelId"] = new SelectList(_context.Treatments, "Id", "Id", appointmentModel.TreatmentModelId);
@@ -97,6 +82,7 @@ namespace LUXLocks_projekt.Controllers
         }
 
         // GET: Appointment/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -119,6 +105,7 @@ namespace LUXLocks_projekt.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("Id,AppointmentDate,CustomerName,PhoneNumber,Email,StylistModelId,TreatmentModelId,HairLength,HairType,AdditionalInfo,SilentTreatment")] AppointmentModel appointmentModel)
         {
             if (id != appointmentModel.Id)
@@ -152,6 +139,7 @@ namespace LUXLocks_projekt.Controllers
         }
 
         // GET: Appointment/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -174,6 +162,7 @@ namespace LUXLocks_projekt.Controllers
         // POST: Appointment/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var appointmentModel = await _context.Appointments.FindAsync(id);

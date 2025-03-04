@@ -47,8 +47,6 @@ namespace LUXLocks_projekt.Controllers
         }
 
         // GET: Review/Create
-        // Skapa recension kräver inloggning
-        [Authorize]
         public IActionResult Create()
         {
             ViewData["TreatmentModelId"] = new SelectList(_context.Treatments, "Id", "Id");
@@ -60,7 +58,6 @@ namespace LUXLocks_projekt.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
         public async Task<IActionResult> Create([Bind("Id,TreatmentModelId,Name,Rating,Comment")] ReviewModel reviewModel)
         {
             if (ModelState.IsValid)

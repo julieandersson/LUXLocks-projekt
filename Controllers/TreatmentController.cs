@@ -45,7 +45,7 @@ namespace LUXLocks_projekt.Controllers
         }
 
         // GET: Treatment/Create
-        // Lägg till behandling kräver inloggning (ej relevant för kunder)
+        // Lägg till behandling kräver inloggning
         [Authorize]
         public IActionResult Create()
         {
@@ -70,7 +70,7 @@ namespace LUXLocks_projekt.Controllers
         }
 
         // GET: Treatment/Edit/5
-        // Redigera behandling kräver inloggning (ej relevant för kunder)
+        // Redigera behandling kräver inloggning
         [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -124,7 +124,7 @@ namespace LUXLocks_projekt.Controllers
         }
 
         // GET: Treatment/Delete/5
-        // Radera behandling kräver inloggning (ej relevant för kunder)
+        // Radera behandling kräver inloggning
         [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
