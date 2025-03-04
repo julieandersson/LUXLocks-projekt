@@ -1,17 +1,19 @@
-// Namn, beskrivning och pris om de olika behandlingar som finns
-// Hantering av dessa är ej åtkomligt för kunder, därav ingen required
+using System.ComponentModel.DataAnnotations;
 
 namespace LUXLocks_projekt.Models {
     public class TreatmentModel {
         public int Id { get; set; }
 
         // tex klippning, färgning
+        [Required(ErrorMessage = "Du måste ge behandlingen ett namn")]
         public string? Name { get; set; }
         
         // beskrivning av behandling
+        [Required(ErrorMessage = "Du måste beskriva behandlingen.")]
         public string? Description { get; set; }
         
         // pris på behandling
+        [Required(ErrorMessage = "Du måste ange pris på behandlingen.")]
         public decimal Price { get; set; }
 
         public List<AppointmentModel>? Appointments { get; set; } // koppling till bokningstabellen
