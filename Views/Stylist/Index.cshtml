@@ -25,6 +25,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Bio)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageName)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -36,6 +39,11 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Bio)
+            </td>
+            <td>
+                <a href="images/@Html.DisplayFor(modelItem => item.ImageName)">
+                <img src="images/thumb_@Html.DisplayFor(modelItem => item.ImageName)" alt="Bild">
+                </a>
             </td>
             <td>
                 @if (SignInManager.IsSignedIn(User))
