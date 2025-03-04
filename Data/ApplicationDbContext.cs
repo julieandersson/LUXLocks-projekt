@@ -15,5 +15,4 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet <StylistModel> Stylists { get; set; }
     public DbSet <TreatmentModel> Treatments { get; set; }
     public DbSet <ReviewModel> Reviews { get; set; }
-    public DbSet <CustomerProfileModel> CustomerProfiles { get; set; }
 }
