@@ -14,10 +14,14 @@ namespace LUXLocks_projekt.Controllers
     public class StylistController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _hostEnvironment;
+        private readonly string wwwRootPath;
 
-        public StylistController(ApplicationDbContext context)
+        public StylistController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            _hostEnvironment = hostEnvironment;
+            wwwRootPath = hostEnvironment.WebRootPath;
         }
 
         // GET: Stylist
@@ -58,10 +62,28 @@ namespace LUXLocks_projekt.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Create([Bind("Id,Name,Bio")] StylistModel stylistModel)
+        public async Task<IActionResult> Create([Bind("Id,Name,Bio,ImageFile")] StylistModel stylistModel)
         {
             if (ModelState.IsValid)
             {
+                // kontrollera om det finns någon bild
+                if(stylistModel.ImageFile != null ) {
+                    // Generera unikt filnamn 
+                    string fileName = Path.GetFileNameWithoutExtension(stylistModel.ImageFile.FileName);
+                    string extension = Path.GetExtension(stylistModel.ImageFile.FileName); // filändelse, såsom jpg, png etc
+
+                    stylistModel.ImageName = fileName = fileName.Replace(" ", String.Empty) + DateTime.Now.ToString("yymmssfff") + extension; // tar bort alla mellanslag om det finns, lägger till datum och filändelse på slutet 
+
+                    string path = Path.Combine(wwwRootPath + "/images", fileName); // sökvägen, lägger i mappen images
+
+                    // sparar i filsystemet
+                    using (var fileStream = new FileStream(path, FileMode.Create)) {
+                        await stylistModel.ImageFile.CopyToAsync(fileStream); // gör en await för att spara
+                    }
+                } else {
+                    stylistModel.ImageName = "placeholder.jpg"; // standardvärde om ingen bild laddas upp
+                }
+
                 _context.Add(stylistModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -93,7 +115,7 @@ namespace LUXLocks_projekt.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Bio")] StylistModel stylistModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Bio, ImageName")] StylistModel stylistModel)
         {
             if (id != stylistModel.Id)
             {
