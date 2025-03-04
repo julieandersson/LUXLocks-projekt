@@ -49,11 +49,29 @@ namespace LUXLocks_projekt.Controllers
         }
 
         // GET: Appointment/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            // hitta den inloggade användaren i databasen för att kunna hämta användarens hårprofil
+            var user = await _context.Users
+                .FirstOrDefaultAsync(u => u.UserName == User.Identity!.Name);
+            if (user == null) return NotFound();
+
+            // hämtar användarens hårprofil från CustomerProfileModel
+            var userProfile = await _context.CustomerProfiles
+                .FirstOrDefaultAsync(p => p.UserId == user.Id);
+
+            // skapar en ny bokning med hårprofilen förifylls
+            var appointment = new AppointmentModel
+            {
+                HairLength = userProfile?.HairLength,
+                HairType = userProfile?.HairType,
+                AdditionalInfo = userProfile?.AdditionalInfo
+            };
+
             ViewData["StylistModelId"] = new SelectList(_context.Stylists, "Id", "Id");
             ViewData["TreatmentModelId"] = new SelectList(_context.Treatments, "Id", "Id");
-            return View();
+
+            return View(appointment);
         }
 
         // POST: Appointment/Create

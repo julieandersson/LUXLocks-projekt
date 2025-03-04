@@ -7,7 +7,7 @@ namespace LUXLocks_projekt.Models {
 
         // Datum för när behandlingen ska ske
         [Required(ErrorMessage = "Du måste ange datum för din behandling.")]
-        public DateTime AppointmentDate { get; set; }
+        public DateTime? AppointmentDate { get; set; }
 
         // Namn på den som bokar
         [Required(ErrorMessage = "Du måste ange fullständigt namn.")]
