@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LUXLocks_projekt.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250304122031_AllControllersAndViews")]
-    partial class AllControllersAndViews
+    [Migration("20250304215031_RefreshModel")]
+    partial class RefreshModel
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,9 +32,6 @@ namespace LUXLocks_projekt.Data.Migrations
                     b.Property<DateTime>("AppointmentDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("BookedBy")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("CustomerName")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -44,9 +41,11 @@ namespace LUXLocks_projekt.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("HairLength")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("HairType")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PhoneNumber")
@@ -69,34 +68,6 @@ namespace LUXLocks_projekt.Data.Migrations
                     b.HasIndex("TreatmentModelId");
 
                     b.ToTable("Appointments");
-                });
-
-            modelBuilder.Entity("LUXLocks_projekt.Models.CustomerProfileModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("AdditionalInfo")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("HairLength")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("HairType")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("CustomerProfiles");
                 });
 
             modelBuilder.Entity("LUXLocks_projekt.Models.ReviewModel", b =>
@@ -379,17 +350,6 @@ namespace LUXLocks_projekt.Data.Migrations
                     b.Navigation("Stylist");
 
                     b.Navigation("Treatment");
-                });
-
-            modelBuilder.Entity("LUXLocks_projekt.Models.CustomerProfileModel", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("LUXLocks_projekt.Models.ReviewModel", b =>
