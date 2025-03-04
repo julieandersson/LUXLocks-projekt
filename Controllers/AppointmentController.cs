@@ -59,11 +59,15 @@ namespace LUXLocks_projekt.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,AppointmentDate,CustomerName,PhoneNumber,Email,StylistModelId,TreatmentModelId,HairLength,HairType,AdditionalInfo,SilentTreatment,BookedBy")] AppointmentModel appointmentModel)
+        public async Task<IActionResult> Create([Bind("Id,AppointmentDate,CustomerName,PhoneNumber,Email,StylistModelId,TreatmentModelId,HairLength,HairType,AdditionalInfo,SilentTreatment")] AppointmentModel appointmentModel)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(appointmentModel);
+
+                // Lägg till inloggad användare till BookedBy
+                appointmentModel.BookedBy = User.Identity?.Name ?? "Unknown";
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -95,7 +99,7 @@ namespace LUXLocks_projekt.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,AppointmentDate,CustomerName,PhoneNumber,Email,StylistModelId,TreatmentModelId,HairLength,HairType,AdditionalInfo,SilentTreatment,BookedBy")] AppointmentModel appointmentModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,AppointmentDate,CustomerName,PhoneNumber,Email,StylistModelId,TreatmentModelId,HairLength,HairType,AdditionalInfo,SilentTreatment")] AppointmentModel appointmentModel)
         {
             if (id != appointmentModel.Id)
             {
