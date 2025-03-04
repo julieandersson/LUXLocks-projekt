@@ -27,22 +27,42 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="Index">Boka</a>
-                        </li>
-                        @if (SignInManager.IsSignedIn(User)) {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="CustomerProfile" asp-action="Index">Kundprofil</a>
-                        </li>
+
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            @* Kundprofil visas endast för inloggade användare *@
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="CustomerProfile" asp-action="Index">Kundprofil</a>
+                            </li>
                         }
+                        
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            @* Bokningar och recensioner för inloggade användare *@
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="Index">Mina bokningar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Review" asp-action="Create">Skriv en recension</a>
+                            </li>
+                        }
+                        else
+                        {
+                            @* Boka och se recensioner för inloggade användare*@
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="Index">Boka tid</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Review" asp-action="Index">Recensioner</a>
+                            </li>
+                        }
+
+                        <!-- Lista med frisörer och behandlingar, samma i utloggat och inloggat läge -->
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Review" asp-action="Index">Recensioner</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Stylist" asp-action="Index">Våra frisörer</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Stylist" asp-action="Index">Frisörer</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Treatment" asp-action="Index">Behandlingar</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Treatment" asp-action="Index">Våra behandlingar</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
