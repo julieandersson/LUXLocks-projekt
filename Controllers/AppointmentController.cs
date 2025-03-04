@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LUXLocks_projekt.Data;
 using LUXLocks_projekt.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LUXLocks_projekt.Controllers
 {
+    [Authorize]
     public class AppointmentController : Controller
     {
         private readonly ApplicationDbContext _context;

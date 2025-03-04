@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LUXLocks_projekt.Data;
 using LUXLocks_projekt.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LUXLocks_projekt.Controllers
 {
@@ -44,6 +45,8 @@ namespace LUXLocks_projekt.Controllers
         }
 
         // GET: Treatment/Create
+        // Lägg till behandling kräver inloggning (ej relevant för kunder)
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -54,6 +57,7 @@ namespace LUXLocks_projekt.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("Id,Name,Description,Price")] TreatmentModel treatmentModel)
         {
             if (ModelState.IsValid)
@@ -66,6 +70,8 @@ namespace LUXLocks_projekt.Controllers
         }
 
         // GET: Treatment/Edit/5
+        // Redigera behandling kräver inloggning (ej relevant för kunder)
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,6 +92,7 @@ namespace LUXLocks_projekt.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price")] TreatmentModel treatmentModel)
         {
             if (id != treatmentModel.Id)
@@ -117,6 +124,8 @@ namespace LUXLocks_projekt.Controllers
         }
 
         // GET: Treatment/Delete/5
+        // Radera behandling kräver inloggning (ej relevant för kunder)
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,6 +146,7 @@ namespace LUXLocks_projekt.Controllers
         // POST: Treatment/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var treatmentModel = await _context.Treatments.FindAsync(id);
