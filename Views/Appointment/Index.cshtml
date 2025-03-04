@@ -46,9 +46,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.SilentTreatment)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BookedBy)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -84,9 +81,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SilentTreatment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookedBy)
             </td>
             <td>
                 @if (SignInManager.IsSignedIn(User))

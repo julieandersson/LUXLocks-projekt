@@ -70,9 +70,6 @@ namespace LUXLocks_projekt.Controllers
             {
                 _context.Add(appointmentModel);
 
-                // Lägg till inloggad användare till BookedBy
-                appointmentModel.BookedBy = User.Identity?.Name ?? "Unknown";
-
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");
             }

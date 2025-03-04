@@ -33,15 +33,14 @@ namespace LUXLocks_projekt.Models {
         public int? TreatmentModelId { get; set; } // koppling till tabell med behandlingar
         public TreatmentModel? Treatment { get; set; }
 
-        // kopierad hårprofil från CustomerProfileModel vid bokningstillfället
+        // ange hårlängd, hårtyp och eventuell annan info
+        [Required(ErrorMessage = "Du måste ange din hårlängd.")]
         public string? HairLength { get; set; }
+        [Required(ErrorMessage = "Du måste ange din hårtyp.")]
         public string? HairType { get; set; }
         public string? AdditionalInfo { get; set; }
 
         // om man vill ha tyst behandling eller inte, nej som default
         public bool SilentTreatment { get; set; } = false;
-
-        // vem bokar behandlingen (inloggad)
-        public string? BookedBy { get; set; }
     }
 }
