@@ -61,10 +61,12 @@ namespace LUXLocks_projekt.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Create([Bind("Id,TreatmentModelId,Name,Rating,Comment,CreatedAt")] ReviewModel reviewModel)
+        public async Task<IActionResult> Create([Bind("Id,TreatmentModelId,Name,Rating,Comment")] ReviewModel reviewModel)
         {
             if (ModelState.IsValid)
             {
+                reviewModel.CreatedAt = DateTime.Now;
+                
                 _context.Add(reviewModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
