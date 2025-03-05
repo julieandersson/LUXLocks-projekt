@@ -4,9 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>ReviewModel</h4>
+<h2>Skriv en recension</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,32 +12,34 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="TreatmentModelId" class="control-label"></label>
-                <select asp-for="TreatmentModelId" class ="form-control" asp-items="ViewBag.TreatmentModelId"></select>
+                <select asp-for="TreatmentModelId" class ="form-control" asp-items="ViewBag.TreatmentModelId">
+                    <option value="" disabled selected>Välj behandling</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" class="form-control" placeholder="Skriv ditt namn" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Rating" class="control-label"></label>
-                <input asp-for="Rating" class="form-control" />
+                <input asp-for="Rating" class="form-control" placeholder="Sätt ett betyg mellan 1-5" />
                 <span asp-validation-for="Rating" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Comment" class="control-label"></label>
-                <input asp-for="Comment" class="form-control" />
+                <textarea asp-for="Comment" class="form-control" placeholder="Skriv din recension" rows="4"></textarea>
                 <span asp-validation-for="Comment" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Skicka" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Tillbaka till recensioner</a>
 </div>
 
 @section Scripts {

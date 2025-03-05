@@ -49,7 +49,7 @@ namespace LUXLocks_projekt.Controllers
         // GET: Review/Create
         public IActionResult Create()
         {
-            ViewData["TreatmentModelId"] = new SelectList(_context.Treatments, "Id", "Id");
+            ViewData["TreatmentModelId"] = new SelectList(_context.Treatments, "Id", "Name");
             return View();
         }
 

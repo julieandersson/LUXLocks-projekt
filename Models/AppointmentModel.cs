@@ -41,11 +41,11 @@ namespace LUXLocks_projekt.Models {
 
         // ange hårlängd, hårtyp och eventuell annan info
         [Required(ErrorMessage = "Du måste ange din hårlängd.")]
-        [Display(Name = "Hårlängd")]
+        [Display(Name = "Hårlängd:")]
         public string? HairLength { get; set; }
 
         [Required(ErrorMessage = "Du måste ange din hårtyp.")]
-        [Display(Name = "Hårtyp")]
+        [Display(Name = "Hårtyp:")]
         public string? HairType { get; set; }
 
         [Display(Name = "Annat du tycker vi bör veta:")]
