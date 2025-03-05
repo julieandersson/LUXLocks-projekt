@@ -53,8 +53,18 @@ namespace LUXLocks_projekt.Controllers
         public IActionResult Create()
         {
 
-            ViewData["StylistModelId"] = new SelectList(_context.Stylists, "Id", "Id");
-            ViewData["TreatmentModelId"] = new SelectList(_context.Treatments, "Id", "Id");
+            ViewData["StylistModelId"] = new SelectList(_context.Stylists, "Id", "Name");
+            
+            // kombinerar namn och pris i en sträng så att båda visas i dropdownmenyn vid bokning
+            ViewData["TreatmentModelId"] = new SelectList(
+                _context.Treatments.Select(t => new 
+                { 
+                    Id = t.Id, 
+                    DisplayName = t.Name + " - " + t.Price.ToString("0") + " kr" 
+                }), 
+                "Id", 
+                "DisplayName"
+            );
 
             return View();
         }
