@@ -4,11 +4,12 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
+<h2>Ta bort</h2>
+<h4>Är du säker att du vill ta bort denna behandling?</h4>
+<p class="text-muted fst-italic">
+    Stäm alltid av med ansvarig innan du tar bort en behandling.
+</p>
 <div>
-    <h4>TreatmentModel</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -33,7 +34,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Ta bort" class="btn btn-danger" /> |
+        <a asp-action="Index">Tillbaka till behandlingar</a>
     </form>
 </div>
