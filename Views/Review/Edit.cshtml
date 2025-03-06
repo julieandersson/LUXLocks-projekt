@@ -4,9 +4,10 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>ReviewModel</h4>
+<h2>Redigera recension</h2>
+<p class="text-muted fst-italic">
+    Stäm alltid av med kunden först innan du gör några ändringar.
+</p>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -39,14 +40,14 @@
                 <span asp-validation-for="CreatedAt" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Spara ändringar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Tillbaka till recensioner</a>
 </div>
 
 @section Scripts {

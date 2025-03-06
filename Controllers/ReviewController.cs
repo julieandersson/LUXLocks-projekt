@@ -87,7 +87,7 @@ namespace LUXLocks_projekt.Controllers
             {
                 return NotFound();
             }
-            ViewData["TreatmentModelId"] = new SelectList(_context.Treatments, "Id", "Id", reviewModel.TreatmentModelId);
+            ViewData["TreatmentModelId"] = new SelectList(_context.Treatments, "Id", "Name", reviewModel.TreatmentModelId);
             return View(reviewModel);
         }
 
