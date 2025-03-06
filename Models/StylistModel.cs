@@ -11,7 +11,7 @@ namespace LUXLocks_projekt.Models {
         public string? Name { get; set; }
 
         [Required(ErrorMessage = "Du måste ange en biografi.")]
-        [Display(Name = "Om mig:")]
+        [Display(Name = "Biografi:")]
         public string? Bio { get; set; }
 
         // lagra filnamn för bild i databasen
@@ -20,6 +20,7 @@ namespace LUXLocks_projekt.Models {
 
         // visa i gränssnitt
         [NotMapped] // lagra ej i databasen
+        [Display(Name = "Profilbild:")]
         public IFormFile? ImageFile { get; set;}
 
         public List<AppointmentModel>? Appointments { get; set; }

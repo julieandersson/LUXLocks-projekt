@@ -4,15 +4,15 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h2>Redigera</h2>
 
-<h4>StylistModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="ImageName" /> <!-- behåll den gamla bilden om ingen ny laddas upp-->
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -23,20 +23,29 @@
                 <input asp-for="Bio" class="form-control" />
                 <span asp-validation-for="Bio" class="text-danger"></span>
             </div>
+            <!-- Nuvarande bild -->
+    <div class="form-group">
+        <label class="control-label">Nuvarande bild</label>
+        <br>
+        <img src="~/images/@Model.ImageName" alt="Stylist Bild" width="150" height="150"/>
+    </div>
+
+    <!-- Ny bilduppladdning -->
+    <div class="form-group">
+        <label asp-for="ImageFile" class="control-label">Ladda upp en ny bild</label>
+        <input type="file" asp-for="ImageFile" class="form-control" />
+        <span asp-validation-for="ImageFile" class="text-danger"></span>
+    </div>
+    
             <div class="form-group">
-                <label asp-for="ImageName" class="control-label"></label>
-                <input asp-for="ImageName" class="form-control" />
-                <span asp-validation-for="ImageName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Spara ändringar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Tillbaka till personal</a>
 </div>
 
 @section Scripts {
