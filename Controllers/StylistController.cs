@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using LUXLocks_projekt.Data;
 using LUXLocks_projekt.Models;
 using Microsoft.AspNetCore.Authorization;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 
 namespace LUXLocks_projekt.Controllers
 {
@@ -82,6 +84,9 @@ namespace LUXLocks_projekt.Controllers
                     {
                         await stylistModel.ImageFile.CopyToAsync(fileStream); // gör en await för att spara
                     }
+
+                    // skapar miniatyrbild
+                    CreateImageFiles(fileName);
                 }
                 else
                 {
@@ -139,16 +144,6 @@ namespace LUXLocks_projekt.Controllers
                     // om en ny bild laddas upp
                     if (stylistModel.ImageFile != null)
                     {
-                        // Ta bort den gamla bilden (om det inte är placeholder.jpg)
-                        if (!string.IsNullOrEmpty(existingStylist.ImageName) && existingStylist.ImageName != "placeholder.jpg")
-                        {
-                            string oldImagePath = Path.Combine(wwwRootPath + "/images", existingStylist.ImageName);
-                            if (System.IO.File.Exists(oldImagePath))
-                            {
-                                System.IO.File.Delete(oldImagePath);
-                            }
-                        }
-
                         // Generera nytt unikt filnamn
                         string fileName = Path.GetFileNameWithoutExtension(stylistModel.ImageFile.FileName);
                         string extension = Path.GetExtension(stylistModel.ImageFile.FileName);
@@ -161,6 +156,9 @@ namespace LUXLocks_projekt.Controllers
                             await stylistModel.ImageFile.CopyToAsync(fileStream);
                         }
 
+                        // Skapar miniatyrbild för den nya bilden
+                        CreateImageFiles(fileName);
+                        
                         // Uppdaterar bildnamnet i databasen
                         existingStylist.ImageName = fileName;
                     }
@@ -227,6 +225,16 @@ namespace LUXLocks_projekt.Controllers
         private bool StylistModelExists(int id)
         {
             return _context.Stylists.Any(e => e.Id == id);
+        }
+
+        // skapar funktion för miniatyrbild
+        private void CreateImageFiles(string fileName) {
+            string imagePath = wwwRootPath + "/images/";
+
+            // Skapa miniatyrbild
+            using var image = Image.Load(imagePath + fileName);
+            image.Mutate(x => x.Resize(image.Width / 2, image.Height / 2));
+            image.Save(imagePath + "thumb_" + fileName);
         }
     }
 }
