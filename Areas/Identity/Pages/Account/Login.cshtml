@@ -2,20 +2,22 @@
 @model LoginModel
 
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "Logga in";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h2>@ViewData["Title"]</h2>
 <div class="row">
     <div class="col-md-4">
         <section>
             <form id="account" method="post">
-                <h2>Use a local account to log in.</h2>
+                <p class="text-muted fst-italic">
+                    Använd ditt personalkonto för att logga in.
+                </p>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                 <div class="form-floating mb-3">
                     <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="namn@exempel.com" />
-                    <label asp-for="Input.Email" class="form-label">Email</label>
+                    <label asp-for="Input.Email" class="form-label">E-postadress</label>
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
                 <div class="form-floating mb-3">
@@ -25,8 +27,8 @@
                 </div>
                 <div class="checkbox mb-3">
                     <label asp-for="Input.RememberMe" class="form-label">
-                        <input class="form-check-input" asp-for="Input.RememberMe" />
-                        @Html.DisplayNameFor(m => m.Input.RememberMe)
+                    <input class="form-check-input" asp-for="Input.RememberMe" />
+                    Kom ihåg mig?
                     </label>
                 </div>
                 <div>
@@ -34,13 +36,7 @@
                 </div>
                 <div>
                     <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                    </p>
-                    <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                    </p>
-                    <p>
-                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Har du inget konto? Registera ett här</a>
                     </p>
                 </div>
             </form>
