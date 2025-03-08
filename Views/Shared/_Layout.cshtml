@@ -14,61 +14,64 @@
     <link rel="stylesheet" href="~/LUXLocks_projekt.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                <img src="~/images/luxlogo.png" alt="LUXLocks" style="height: 120px;">
-                </a>
+    <header class="custom-theme">
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" asp-area="" asp-controller="Home" asp-action="Index">
+                <img src="~/images/luxlogo.png" alt="LUXLocks" style="height: 80px; margin-right: 20px;">
+            </a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Start</a>
+                    </li>
+
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        @* Inloggat läge *@
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Start</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="Index">Bokningar</a>
                         </li>
-                        
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            @* Inloggat läge *@
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="Index">Bokningar</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Review" asp-action="Index">Recensioner</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Stylist" asp-action="Index">Personal</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Treatment" asp-action="Index">Behandlingar</a>
-                            </li>
-                        }
-                        else
-                        {
-                            @* Utloggat läge *@
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="Create">Boka tid</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Review" asp-action="Index">Recensioner</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Stylist" asp-action="Index">Våra frisörer</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Treatment" asp-action="Index">Våra behandlingar</a>
-                            </li>
-                        }
-                    </ul>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Review" asp-action="Index">Recensioner</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Stylist" asp-action="Index">Personal</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Treatment" asp-action="Index">Behandlingar</a>
+                        </li>
+                    }
+                    else
+                    {
+                        @* Utloggat läge *@
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="Create">Boka tid</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Review" asp-action="Index">Recensioner</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Stylist" asp-action="Index">Våra frisörer</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Treatment" asp-action="Index">Våra behandlingar</a>
+                        </li>
+                    }
+                </ul>
+                <ul class="navbar-nav ms-auto">
                     <partial name="_LoginPartial" />
-                </div>
+                </ul>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
+</header>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
