@@ -8,64 +8,54 @@
     ViewData["Title"] = "Recensioner";
 }
 
-<h2>Recensioner</h2>
+<div class="container mt-4">
+    <h2 class="mb-4">Recensioner</h2>
 
-<p>
     @if (!SignInManager.IsSignedIn(User))
     {
-    <a asp-action="Create">Skriv en recension</a>
+        <div class="mb-4">
+            <a asp-action="Create" class="btn btn-primary">Skriv en recension</a>
+        </div>
     }
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TreatmentModelId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rating)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Comment)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Treatment.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rating)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Comment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedAt)
-            </td>
-            <td>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4"> 
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Treatment.Name)</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Av: @Html.DisplayFor(modelItem => item.Name)</h6>
+
+                        <p class="mb-1">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                if (i <= item.Rating)
+                                {
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                }
+                                else
+                                {
+                                    <i class="bi bi-star text-muted"></i>
+                                }
+                            }
+                        </p>
+
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.Comment)</p>
+
+                        <p class="text-muted small">Skapad: @Html.DisplayFor(modelItem => item.CreatedAt)</p>
+                    </div>
+
                     @if (SignInManager.IsSignedIn(User))
                     {
-                        <a asp-action="Edit" asp-route-id="@item.Id">Redigera</a>
-                        <span> | </span>
-                        <a asp-action="Details" asp-route-id="@item.Id">Detaljer</a>
-                        <span> | </span>
-                        <a asp-action="Delete" asp-route-id="@item.Id">Ta bort</a>
+                        <div class="card-footer bg-white border-top-0 text-end">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary me-2">Redigera</a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary me-2">Detaljer</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Ta bort</a>
+                        </div>
                     }
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                </div>
+            </div>
+        }
+    </div>
+</div>
