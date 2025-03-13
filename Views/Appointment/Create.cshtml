@@ -4,74 +4,104 @@
     ViewData["Title"] = "Boka tid";
 }
 
-<h2>Boka din tid hos oss</h2>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="AppointmentDate" class="control-label"></label>
-                <input asp-for="AppointmentDate" class="form-control" />
-                <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Boka din tid hos oss</h2>
+    <p class="text-dark">
+        Välkommen till LUXLocks! Här kan du enkelt boka en tid för din behandling. 
+        Välj en av våra skickliga stylister, ange önskad behandling och fyll i dina uppgifter. 
+        Vi strävar efter att ge dig en lyxig och avkopplande upplevelse - oavsett om du vill 
+        fräscha upp din frisyr eller testa något helt nytt.
+    </p>
+
+    <p class="text-dark">
+        För bästa resultat, vänligen fyll i information om ditt hårs längd och tjocklek. 
+        Detta hjälper oss att planera din behandling och ge dig den bästa möjliga servicen. 
+        Har du några specifika önskemål? Lämna gärna ett meddelande i fältet för ytterligare information.
+    </p>
+
+    <p class="fw-bold">
+        Vi ser fram emot att ta hand om dig - boka din tid idag!
+    </p>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm p-4">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="AppointmentDate" class="form-label">Datum:</label>
+                        <input asp-for="AppointmentDate" class="form-control" type="datetime-local"/>
+                        <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="CustomerName" class="form-label">Fullständigt namn:</label>
+                        <input asp-for="CustomerName" class="form-control" placeholder="Skriv ditt fullständiga namn"/>
+                        <span asp-validation-for="CustomerName" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="PhoneNumber" class="form-label">Telefonnummer:</label>
+                        <input asp-for="PhoneNumber" class="form-control" placeholder="Skriv ditt telefonnummer"/>
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label">E-postadress:</label>
+                        <input asp-for="Email" class="form-control" placeholder="Skriv din e-postadress"/>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="StylistModelId" class="form-label">Välj utövare:</label>
+                        <select asp-for="StylistModelId" class="form-select" asp-items="ViewBag.StylistModelId">
+                            <option value="" disabled selected>Välj utövare</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="TreatmentModelId" class="form-label">Vad vill du göra?</label>
+                        <select asp-for="TreatmentModelId" class="form-select" asp-items="ViewBag.TreatmentModelId">
+                            <option value="" disabled selected>Välj behandling</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="HairLength" class="form-label">Hårlängd:</label>
+                        <input asp-for="HairLength" class="form-control" placeholder="t.ex. Mycket långt"/>
+                        <span class="text-muted small">
+                            Fyll i kort, mellan, långt eller mycket långt. Om du tvekar mellan två längder, välj den längre.
+                        </span>
+                        <span asp-validation-for="HairLength" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="HairType" class="form-label">Hårtyp:</label>
+                        <input asp-for="HairType" class="form-control" placeholder="t.ex. Mycket tjockt"/>
+                        <span class="text-muted small">
+                            Fyll i tunt, normalt, tjockt eller mycket tjockt. Om du tvekar mellan två tjocklekar, välj det tjockare.
+                        </span>
+                        <span asp-validation-for="HairType" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="AdditionalInfo" class="form-label">Ytterligare information:</label>
+                        <textarea asp-for="AdditionalInfo" class="form-control" placeholder="Meddelande..." rows="4"></textarea>
+                        <span asp-validation-for="AdditionalInfo" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" asp-for="SilentTreatment"/>
+                        <label class="form-check-label">
+                            @Html.DisplayNameFor(model => model.SilentTreatment)
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg w-100">Boka</button>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="CustomerName" class="control-label"></label>
-                <input asp-for="CustomerName" class="form-control" placeholder="Skriv ditt fullständiga namn"/>
-                <span asp-validation-for="CustomerName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" placeholder="Skriv ditt telefonnummer" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" placeholder="Skriv din epostadress" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StylistModelId" class="control-label"></label>
-                <select asp-for="StylistModelId" class ="form-control" asp-items="ViewBag.StylistModelId">
-                    <option value="" disabled selected>Välj utövare</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label asp-for="TreatmentModelId" class="control-label"></label>
-                <select asp-for="TreatmentModelId" class ="form-control" asp-items="ViewBag.TreatmentModelId">
-                    <option value="" disabled selected>Välj behandling</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label asp-for="HairLength" class="control-label"></label><br>
-                <span class="text-muted fst-italic">
-                    Fyll i kort, mellan, långt eller mycket långt. Om du tvekar mellan två längder, välj den längre.
-                </span>
-                <input asp-for="HairLength" class="form-control" placeholder="t.ex. Mycket långt" />
-                <span asp-validation-for="HairLength" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="HairType" class="control-label"></label><br>
-                <span class="text-muted fst-italic">
-                    Fyll i tunt, normalt, tjockt eller mycket tjockt. Om du tvekar mellan två tjocklekar, välj det tjockare.
-                </span>
-                <input asp-for="HairType" class="form-control" placeholder="t.ex. Mycket tjockt" />
-                <span asp-validation-for="HairType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AdditionalInfo" class="control-label"></label>
-                <textarea asp-for="AdditionalInfo" class="form-control" placeholder="Meddelande..." rows="4"></textarea>
-                <span asp-validation-for="AdditionalInfo" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="SilentTreatment" /> @Html.DisplayNameFor(model => model.SilentTreatment)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Boka" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
