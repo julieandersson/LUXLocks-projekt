@@ -8,87 +8,51 @@
     ViewData["Title"] = "Bokningar";
 }
 
-<h2>Kommande bokningar</h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.AppointmentDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CustomerName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Stylist.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Treatment.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HairLength)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HairType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AdditionalInfo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SilentTreatment)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.AppointmentDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Stylist.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Treatment.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HairLength)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HairType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AdditionalInfo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SilentTreatment)
-            </td>
-            <td>
-                @if (SignInManager.IsSignedIn(User))
-                {
-                <a asp-action="Edit" asp-route-id="@item.Id">Redigera</a>
-                <span> | </span>
-                <a asp-action="Details" asp-route-id="@item.Id">Detaljer</a>
-                <span> | </span>
-                <a asp-action="Delete" asp-route-id="@item.Id">Avboka</a>
-                }
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="container mt-4">
+    <h2 class="mb-4">Kommande bokningar</h2>
+    <p class="text-dark">
+        Här visas en översikt över kommande bokningar. Om en kund önskar göra ändringar i sin bokning kan detta hanteras via knappen "Redigera". 
+        Bokningar kan även avbokas här vid behov.</p>
+    <p>Observera: Innan en ändring eller avbokning genomförs, säkerställ alltid att kunden har informerats och bekräftat ändringen.
+    </p>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Treatment.Name)</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Tid: @Html.DisplayFor(modelItem => item.AppointmentDate)</h6>
+
+                        <p><strong>Kund:</strong> @Html.DisplayFor(modelItem => item.CustomerName)</p>
+                        <p><strong>Telefon:</strong> @Html.DisplayFor(modelItem => item.PhoneNumber)</p>
+                        <p><strong>E-post:</strong> <a href="mailto:@item.Email">@Html.DisplayFor(modelItem => item.Email)</a></p>
+                        <p><strong>Utövare:</strong> @Html.DisplayFor(modelItem => item.Stylist.Name)</p>
+
+                        @* Kollapsbar sektion för extra detaljer *@
+                        <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#details-@item.Id">
+                            Visa mer info
+                        </button>
+
+                        <div class="collapse mt-2" id="details-@item.Id">
+                            <p><strong>Hårlängd:</strong> @Html.DisplayFor(modelItem => item.HairLength)</p>
+                            <p><strong>Hårtyp:</strong> @Html.DisplayFor(modelItem => item.HairType)</p>
+                            <p><strong>Annat du tycker vi bör veta:</strong> @Html.DisplayFor(modelItem => item.AdditionalInfo)</p>
+                            <p><strong>Tyst behandling:</strong> @(item.SilentTreatment ? "Ja" : "Nej")</p>
+                        </div>
+                    </div>
+
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <div class="card-footer bg-white border-top-0 d-flex justify-content-end gap-2">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Redigera</a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Detaljer</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Avboka</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>

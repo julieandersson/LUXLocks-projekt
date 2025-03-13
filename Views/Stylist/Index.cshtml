@@ -8,54 +8,83 @@
     ViewData["Title"] = "Personal";
 }
 
-<h2>Personal</h2>
+<div class="container mt-4">
+    <h2 class="mb-3">Personal</h2>
 
-<p>
     @if (SignInManager.IsSignedIn(User))
     {
-    <a asp-action="Create">Lägg till personal</a>
+        <p><a asp-action="Create" class="btn btn-primary">Lägg till personal</a></p>
     }
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Bio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageName)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Bio)
-            </td>
-            <td>
-                <a href="images/@Html.DisplayFor(modelItem => item.ImageName)">
-                <img style="width: 250px; height: 250px; border-radius: 50%; "src="images/thumb_@Html.DisplayFor(modelItem => item.ImageName)" alt="personalbild">
-                </a>
-            </td>
-            <td>
-                @if (SignInManager.IsSignedIn(User))
-                {
-                <a asp-action="Edit" asp-route-id="@item.Id">Redigera</a>
-                <span> | </span>
-                <a asp-action="Details" asp-route-id="@item.Id">Detaljer</a>
-                <span> | </span>
-                <a asp-action="Delete" asp-route-id="@item.Id">Ta bort</a>
+
+    <!-- Meddelande som visas när tabellen blir scrollbar -->
+    <div id="scroll-message" class="text-center py-2 d-none">
+        Scrolla tabellen sidledes för att se all information.
+    </div>
+
+        <div id="table-container" class="table-responsive" style="overflow-x: auto; max-width: 100%;">
+            <table class="table align-middle bg-white" style="min-width: 800px;">
+                <thead class="table-white">
+                    <tr class="border-bottom">
+                        <th class="text-center" style="width: 15%;">Namn</th>
+                        <th style="width: 40%; max-width: 300px;">Biografi</th>
+                        <th class="text-center" style="width: 20%;"></th>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <th class="text-center" style="width: 25%;"></th> @* kolumn för åtgärder, syns endast om man är inloggad *@
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="fw-bold text-center">@Html.DisplayFor(modelItem => item.Name)</td>
+                            <td style="max-width: 300px; word-wrap: break-word; white-space: normal;">
+                                @Html.DisplayFor(modelItem => item.Bio)
+                            </td>
+
+                            @* Profilbild *@
+                            <td class="text-center">
+                                <a href="images/@Html.DisplayFor(modelItem => item.ImageName)">
+                                    <img class="rounded-circle img-fluid" style="width: 130px; height: 130px; object-fit: cover;" 
+                                         src="images/thumb_@Html.DisplayFor(modelItem => item.ImageName)" alt="Profilbild">
+                                </a>
+                            </td>
+
+                            @* Åtgärder, syns endast om man är inloggad *@
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <td>
+                                    <div class="d-flex flex-column gap-2">
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Redigera</a>
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Detaljer</a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Ta bort</a>
+                                    </div>
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var tableContainer = document.getElementById("table-container");
+            var scrollMessage = document.getElementById("scroll-message");
+
+            function checkScroll() {
+                if (tableContainer.scrollWidth > tableContainer.clientWidth) {
+                    scrollMessage.classList.remove("d-none");
+                } else {
+                    scrollMessage.classList.add("d-none");
                 }
-            </td>
-        </tr>
+            }
+
+            checkScroll(); // kontrollerar vid sidans laddning
+            window.addEventListener("resize", checkScroll); // kontrollerar vid ändring av skärmstorlek
+        });
+    </script>
 }
-    </tbody>
-</table>
