@@ -9,7 +9,14 @@
 }
 
 <div class="container mt-4">
-    <h2 class="mb-3">Behandlingar</h2>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <h2 class="mb-3">Personal</h2>
+    }
+    else
+    {
+        <h2 class="mb-3">Våra frisörer</h2>
+    }
 
     @if (!SignInManager.IsSignedIn(User))
     {
@@ -55,16 +62,21 @@
                         </td>
                         <td class="text-center">@Html.DisplayFor(modelItem => item.Price) kr</td>
 
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            <td class="text-center">
-                                <div class="d-flex flex-column gap-2">
+                        <td class="text-center">
+                            <div class="d-flex flex-column gap-2">
+                                @if (!SignInManager.IsSignedIn(User))
+                                {
+                                    @* Utloggade ser endast "Boka"-knappen *@
+                                    <a asp-action="Create" asp-controller="Appointment" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Boka</a>
+                                }
+                                else
+                                {
+                                    @* Inloggade ser endast "Redigera" och "Ta bort" *@
                                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Redigera</a>
-                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Detaljer</a>
                                     <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Ta bort</a>
-                                </div>
-                            </td>
-                        }
+                                }
+                            </div>
+                        </td>
                     </tr>
                 }
             </tbody>
