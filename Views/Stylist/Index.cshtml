@@ -10,10 +10,28 @@
 }
 
 <div class="container mt-4">
-    <h2 class="mb-3">Personal</h2>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <h2 class="mb-3">Personal</h2>
+    }
+    else
+    {
+        <h2 class="mb-3">Våra frisörer</h2>
+    }
+
+    @if (!SignInManager.IsSignedIn(User))
+    {
+        @* Text som endast visas för utloggade besökare *@
+        <p>Möt våra fantastiska frisörer! Våra stylister är experter på allt från trendiga klippningar till färgbehandlingar. Boka din tid och låt oss ta hand om ditt hår!</p>
+    }
 
     @if (SignInManager.IsSignedIn(User))
     {
+        @* Text som endast visas för inloggad personal *@
+        <p>
+            <strong>Administratörsinformation:</strong> Här hanteras personalen i salongen. Du kan lägga till nya frisörer, redigera deras profiler och vid behov ta bort en profil. Se till att all information är korrekt och aktuell.
+        </p>
+
         <p><a asp-action="Create" class="btn btn-primary">Lägg till personal</a></p>
     }
 
@@ -38,7 +56,7 @@
                     <div class="d-flex justify-content-center gap-2 mt-2">
                         <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Läs mer</a>
 
-                        @* ändra och radera visas endast för inloggad personal *@
+                        @* Redigera och radera visas endast för inloggad personal *@
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Redigera</a>

@@ -11,8 +11,18 @@
 <div class="container mt-4">
     <h2 class="mb-4">Recensioner</h2>
 
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <p>Här visas de senaste recensionerna. Om en kund önskar göra ändringar i sin recension kan detta hanteras via knappen "Redigera". Recensioner kan även tas bort här vid behov, men stäm alltid av med ansvarig först.
+            <br><br>
+            <strong>Observera:</strong> Innan en ändring eller borttagning genomförs, säkerställ alltid att kunden har informerats och bekräftat ändringen.
+        </p>
+    }
+    
     @if (!SignInManager.IsSignedIn(User))
     {
+        <p>Din åsikt är viktig för oss! Vi strävar alltid efter att erbjuda den bästa upplevelsen för våra kunder, och vi älskar att höra vad du tycker. Har du besökt oss nyligen? Lämna en recension och dela med dig av din upplevelse! Dina ord hjälper oss att bli ännu bättre och hjälper andra kunder att hitta rätt behandling. Tack för att du tar dig tid att ge oss feedback!</p>
+        
         <div class="mb-4">
             <a asp-action="Create" class="btn btn-primary">Skriv en recension</a>
         </div>

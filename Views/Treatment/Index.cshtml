@@ -8,51 +8,86 @@
     ViewData["Title"] = "Behandlingar";
 }
 
-<h2>Behandlingar</h2>
-<p>
+<div class="container mt-4">
+    <h2 class="mb-3">Behandlingar</h2>
+
+    @if (!SignInManager.IsSignedIn(User))
+    {
+        @* Text som endast visas för utloggade besökare *@
+        <p>Upptäck våra behandlingar! Vi erbjuder allt från klippning och färgning till näringsgivande hårbehandlingar. Oavsett om du vill ha en total makeover eller en enkel uppfräschning, har vi något för dig. Bläddra bland våra behandlingar och hitta det som passar dig bäst!</p>
+    }
+
     @if (SignInManager.IsSignedIn(User))
     {
-    <a asp-action="Create">Lägg till ny behandling</a>
+        @* Text som endast visas för inloggade användare *@
+        <p>
+            <strong>Administratörsinformation:</strong> Här visas alla behandlingar som erbjuds. Du kan lägga till nya behandlingar, redigera befintliga eller ta bort behandlingar vid behov. Stäm alltid av med ansvarig, var noggrann vid uppdateringar och säkerställ att all information är korrekt.
+        </p>
+
+        <p><a asp-action="Create" class="btn btn-primary">Lägg till ny behandling</a></p>
     }
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @if (SignInManager.IsSignedIn(User))
+
+    <!-- Meddelande som visas när tabellen blir scrollbar -->
+    <div id="scroll-message" class="text-center py-2 d-none">
+        Scrolla tabellen sidledes för att se all information.
+    </div>
+
+    <div id="table-container" class="table-responsive" style="overflow-x: auto; max-width: 100%;">
+        <table class="table align-middle bg-white" style="min-width: 800px;">
+            <thead class="table-white">
+                <tr class="border-bottom">
+                    <th class="text-center fs-5" style="width: 25%;">Namn</th>
+                    <th class="fs-5" style="width: 40%; max-width: 300px;">Beskrivning</th>
+                    <th class="text-center fs-5" style="width: 15%;">Pris</th>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <th class="text-center fs-5" style="width: 20%;">Åtgärder</th> 
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
                 {
-                <a asp-action="Edit" asp-route-id="@item.Id">Redigera</a>
-                <span> | </span>
-                <a asp-action="Details" asp-route-id="@item.Id">Detaljer</a>
-                <span> | </span>
-                <a asp-action="Delete" asp-route-id="@item.Id">Ta bort</a>
+                    <tr>
+                        <td class="fw-bold text-center">@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td style="max-width: 300px; word-wrap: break-word; white-space: normal;">
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td class="text-center">@Html.DisplayFor(modelItem => item.Price) kr</td>
+
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <td class="text-center">
+                                <div class="d-flex flex-column gap-2">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Redigera</a>
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Detaljer</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Ta bort</a>
+                                </div>
+                            </td>
+                        }
+                    </tr>
                 }
-            </td>
-        </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var tableContainer = document.getElementById("table-container");
+            var scrollMessage = document.getElementById("scroll-message");
+
+            function checkScroll() {
+                if (tableContainer.scrollWidth > tableContainer.clientWidth) {
+                    scrollMessage.classList.remove("d-none");
+                } else {
+                    scrollMessage.classList.add("d-none");
+                }
+            }
+
+            checkScroll(); // kontrollerar vid sidans laddning
+            window.addEventListener("resize", checkScroll); // kontrollerar vid ändring av skärmstorlek
+        });
+    </script>
 }
-    </tbody>
-</table>
