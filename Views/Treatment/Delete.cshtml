@@ -4,37 +4,30 @@
     ViewData["Title"] = "Ta bort behandling";
 }
 
-<h2>Ta bort</h2>
-<h4>Är du säker att du vill ta bort denna behandling?</h4>
-<p class="text-muted fst-italic">
-    Stäm alltid av med ansvarig innan du tar bort en behandling.
-</p>
-<div>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Ta bort" class="btn btn-danger" /> |
-        <a asp-action="Index">Tillbaka till behandlingar</a>
-    </form>
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow-lg p-4" style="max-width: 600px; width: 100%;">
+        <div class="card-body text-center">
+            <h2 class="mb-3">Ta bort behandling</h2>
+            <p class="text-muted">Är du säker på att du vill ta bort denna behandling?</p>
+            <p class="text-danger fst-italic">
+                Stäm alltid av med ansvarig innan du tar bort en behandling.
+            </p>
+
+            <hr />
+
+            <div class="text-start">
+                <p><strong>Namn:</strong> @Html.DisplayFor(model => model.Name)</p>
+                <p><strong>Beskrivning:</strong> @Html.DisplayFor(model => model.Description)</p>
+                <p><strong>Pris:</strong> @Html.DisplayFor(model => model.Price) kr</p>
+            </div>
+
+            <hr />
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                <button type="submit" class="btn btn-danger w-100 mb-2">Ta bort</button>
+                <a asp-action="Index" class="btn btn-outline-secondary w-100">Tillbaka till behandlingar</a>
+            </form>
+        </div>
+    </div>
 </div>

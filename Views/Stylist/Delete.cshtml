@@ -4,37 +4,33 @@
     ViewData["Title"] = "Ta bort personal";
 }
 
-<h2>Ta bort</h2>
-<h4>Är du säker att du vill ta bort denna personal?</h4>
-<p class="text-muted fst-italic">
-    Stäm alltid av med ansvarig innan du tar bort en personal.
-</p>
-<div>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Bio)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Bio)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageName)
-        </dt>
-        <dd class = "col-sm-10">
-            <img src="~/images/@Model.ImageName" alt="Profilbild">
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Ta bort" class="btn btn-danger" /> |
-        <a asp-action="Index">Tillbaka till personal</a>
-    </form>
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow-lg p-4" style="max-width: 600px; width: 100%;">
+        <div class="card-body text-center">
+            <h2 class="mb-3">Ta bort personal</h2>
+            <p class="text-muted">Är du säker på att du vill ta bort denna personal?</p>
+            <p class="text-danger fst-italic">
+                Stäm alltid av med ansvarig innan du tar bort en personal.
+            </p>
+
+            <hr />
+
+            <div class="text-start">
+                <p><strong>Namn:</strong> @Html.DisplayFor(model => model.Name)</p>
+                <p><strong>Biografi:</strong> @Html.DisplayFor(model => model.Bio)</p>
+
+                <div class="text-center my-3">
+                    <img src="~/images/@Model.ImageName" alt="Profilbild" class="img-fluid rounded-circle" style="width: 200px; height: 200px; object-fit: cover;">
+                </div>
+            </div>
+
+            <hr />
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                <button type="submit" class="btn btn-danger w-100 mb-2">Ta bort</button>
+                <a asp-action="Index" class="btn btn-outline-secondary w-100">Tillbaka till personal</a>
+            </form>
+        </div>
+    </div>
 </div>
