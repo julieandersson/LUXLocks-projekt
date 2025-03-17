@@ -31,7 +31,8 @@
 
                     <div class="mb-3">
                         <label asp-for="AppointmentDate" class="form-label">Datum:</label>
-                        <input asp-for="AppointmentDate" class="form-control" type="datetime-local"/>
+                        <input asp-for="AppointmentDate" class="form-control" type="datetime-local" id="appointmentDate"/>
+                        <span id="dateError" class="text-danger" style="display: none;"></span> <!-- felmeddelande vid fel tidsinput -->
                         <span asp-validation-for="AppointmentDate" class="text-danger"></span>
                     </div>
 
@@ -58,6 +59,7 @@
                         <select asp-for="StylistModelId" class="form-select" asp-items="ViewBag.StylistModelId">
                             <option value="" disabled selected>Välj utövare</option>
                         </select>
+                        <span asp-validation-for="StylistModelId" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
@@ -65,6 +67,7 @@
                         <select asp-for="TreatmentModelId" class="form-select" asp-items="ViewBag.TreatmentModelId">
                             <option value="" disabled selected>Välj behandling</option>
                         </select>
+                        <span asp-validation-for="TreatmentModelId" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
@@ -106,5 +109,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script src="~/js/appointment.js" asp-append-version="true"></script> @* importerar jsfil för tidsbokning *@
+
 }

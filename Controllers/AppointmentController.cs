@@ -76,16 +76,52 @@ namespace LUXLocks_projekt.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,AppointmentDate,CustomerName,PhoneNumber,Email,StylistModelId,TreatmentModelId,HairLength,HairType,AdditionalInfo,SilentTreatment")] AppointmentModel appointmentModel)
         {
+            if (appointmentModel.AppointmentDate.HasValue)
+            {
+                var selectedTime = appointmentModel.AppointmentDate.Value;
+
+                // konverterar till serverns lokala tidszon för att undvika problem
+                selectedTime = selectedTime.ToLocalTime();
+
+                int hour = selectedTime.Hour;
+                int minute = selectedTime.Minute;
+                int second = selectedTime.Second;
+
+                // begränsar bokningar till endast mellan 10:00 och 17:00
+                if (hour < 10 || hour > 17)  //
+                {
+                    ModelState.AddModelError("AppointmentDate", "Tiden måste vara mellan 10:00 och 17:00.");
+                }
+
+                // endast hela timmar kan väljas, minuter och sekunder är 0
+                if (minute != 0 || second != 0)
+                {
+                    ModelState.AddModelError("AppointmentDate", "Du kan endast välja hela timmar, t.ex. 10:00, 11:00, 12:00...");
+                }
+            }
+
+            // om modell är giltig efter validering
             if (ModelState.IsValid)
             {
                 _context.Add(appointmentModel);
-
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home"); // skickar tillbaka användaren till startsidan efter bokning
             }
-            ViewData["StylistModelId"] = new SelectList(_context.Stylists, "Id", "Id", appointmentModel.StylistModelId);
-            ViewData["TreatmentModelId"] = new SelectList(_context.Treatments, "Id", "Id", appointmentModel.TreatmentModelId);
-            return View(appointmentModel);
+
+            // laddar om dropdownlistorna så att sidan inte kraschar vid fel
+            ViewData["StylistModelId"] = new SelectList(_context.Stylists, "Id", "Name", appointmentModel.StylistModelId);
+            ViewData["TreatmentModelId"] = new SelectList(
+                _context.Treatments.Select(t => new
+                {
+                    Id = t.Id,
+                    DisplayName = t.Name + " - " + t.Price.ToString("0") + " kr"
+                }),
+                "Id",
+                "DisplayName",
+                appointmentModel.TreatmentModelId
+            );
+
+            return View(appointmentModel); // återgår till bokningsformuläret om valideringen misslyckas
         }
 
         // GET: Appointment/Edit/5
@@ -108,8 +144,6 @@ namespace LUXLocks_projekt.Controllers
         }
 
         // POST: Appointment/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
