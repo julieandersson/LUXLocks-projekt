@@ -4,40 +4,49 @@
     ViewData["Title"] = "Redigera behandling";
 }
 
-<h2>Redigera</h2>
-<p class="text-muted fst-italic">
-    Stäm alltid av med ansvarig innan du gör några ändringar.
-</p>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <textarea asp-for="Description" class="form-control"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Spara ändringar" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Redigera behandling</h2>
+    <p class="text-muted text-center fst-italic">
+        Stäm alltid av med ansvarig innan du gör några ändringar.
+    </p>
 
-<div>
-    <a asp-action="Index">Tillbaka till behandlingar</a>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm p-4">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+
+                    <!-- Namn -->
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label">Behandlingens namn</label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <!-- Beskrivning -->
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label">Beskrivning</label>
+                        <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <!-- Pris -->
+                    <div class="mb-3">
+                        <label asp-for="Price" class="form-label">Pris (SEK)</label>
+                        <input asp-for="Price" class="form-control" type="number" step="0.01" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg w-100">Spara ändringar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-3">
+        <a asp-action="Index" class="text-decoration-none">Tillbaka till behandlingar</a>
+    </div>
 </div>
 
 @section Scripts {

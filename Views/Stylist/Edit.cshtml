@@ -4,53 +4,58 @@
     ViewData["Title"] = "Redigera personal";
 }
 
-<h2>Redigera</h2>
-<p class="text-muted fst-italic">
-    Stäm alltid av med ansvarig innan du gör några ändringar.
-</p>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="ImageName" /> <!-- behåll den gamla bilden om ingen ny laddas upp-->
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Redigera personal</h2>
+    <p class="text-muted text-center fst-italic">
+        Stäm alltid av med ansvarig innan du gör några ändringar.
+    </p>
 
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm p-4">
+                <form asp-action="Edit" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="ImageName" /> <!-- Behåller den gamla bilden om ingen ny laddas upp -->
 
-            <div class="form-group">
-                <label asp-for="Bio" class="control-label"></label>
-                <textarea asp-for="Bio" class="form-control"></textarea>
-                <span asp-validation-for="Bio" class="text-danger"></span>
-            </div>
+                    <!-- Namn -->
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label">Namn</label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
 
-            <!-- Nuvarande bild -->
-            <div class="form-group">
-                <label class="control-label">Nuvarande bild</label>
-                <br>
-                <img src="~/images/thumb_@Model.ImageName" alt="personalbild" />
-            </div>
+                    <!-- Biografi -->
+                    <div class="mb-3">
+                        <label asp-for="Bio" class="form-label">Biografi</label>
+                        <textarea asp-for="Bio" class="form-control" rows="4"></textarea>
+                        <span asp-validation-for="Bio" class="text-danger"></span>
+                    </div>
 
-            <!-- Ny bilduppladdning -->
-            <div class="form-group">
-                <label asp-for="ImageFile" class="control-label">Ladda upp en ny bild</label>
-                <input type="file" asp-for="ImageFile" class="form-control" />
-                <span asp-validation-for="ImageFile" class="text-danger"></span>
-            </div>
+                    <!-- Nuvarande bild -->
+                    <div class="mb-3 text-center">
+                        <label class="form-label fw-bold">Nuvarande bild</label>
+                        <div class="d-flex justify-content-center">
+                            <img src="~/images/thumb_@Model.ImageName" alt="personalbild" class="img-fluid rounded shadow-sm" style="max-width: 200px;">
+                        </div>
+                    </div>
 
-            <div class="form-group">
-                <input type="submit" value="Spara ändringar" class="btn btn-primary" />
+                    <!-- Ny bilduppladdning -->
+                    <div class="mb-3">
+                        <label asp-for="ImageFile" class="form-label">Ladda upp en ny bild</label>
+                        <input type="file" asp-for="ImageFile" class="form-control" />
+                        <span asp-validation-for="ImageFile" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg w-100">Spara ändringar</button>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Tillbaka till personal</a>
+    <div class="text-center mt-3">
+        <a asp-action="Index" class="text-decoration-none">Tillbaka till personal</a>
+    </div>
 </div>
 
 @section Scripts {
