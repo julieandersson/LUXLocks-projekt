@@ -4,44 +4,48 @@
     ViewData["Title"] = "Recensionsdetaljer";
 }
 
-<h2>Se detaljer</h2>
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Se detaljer</h2>
 
-<div>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Treatment.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Treatment.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Rating)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Rating)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Comment)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Comment)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Redigera</a> |
-    <a asp-action="Index">Tillbaka till recensioner</a>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm p-4">
+                <dl class="row">
+                    <!-- Behandling -->
+                    <dt class="col-sm-4 fw-bold">Behandling</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(model => model.Treatment.Name)</dd>
+
+                    <!-- Namn -->
+                    <dt class="col-sm-4 fw-bold">Namn</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(model => model.Name)</dd>
+
+                    <!-- Betyg med stjärnor -->
+                    <dt class="col-sm-4 fw-bold">Betyg</dt>
+                    <dd class="col-sm-8">
+                        @for (int i = 0; i < Model.Rating; i++)
+                        {
+                            <span class="text-warning">&#9733;</span>
+                        }
+                        @for (int i = Model.Rating; i < 5; i++)
+                        {
+                            <span class="text-secondary">&#9733;</span>
+                        }
+                    </dd>
+
+                    <!-- Kommentar -->
+                    <dt class="col-sm-4 fw-bold">Kommentar</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(model => model.Comment)</dd>
+
+                    <!-- Skapad datum -->
+                    <dt class="col-sm-4 fw-bold">Skapad</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(model => model.CreatedAt)</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-3">
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Redigera</a>
+        <a asp-action="Index" class="btn btn-outline-secondary">Tillbaka till recensioner</a>
+    </div>
 </div>
