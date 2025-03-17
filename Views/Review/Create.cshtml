@@ -4,42 +4,63 @@
     ViewData["Title"] = "Skriv en recension";
 }
 
-<h2>Skriv en recension</h2>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="TreatmentModelId" class="control-label"></label>
-                <select asp-for="TreatmentModelId" class ="form-control" asp-items="ViewBag.TreatmentModelId">
-                    <option value="" disabled selected>Välj behandling</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" placeholder="Skriv ditt namn" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Rating" class="control-label"></label>
-                <input asp-for="Rating" class="form-control" placeholder="Sätt ett betyg mellan 1-5" />
-                <span asp-validation-for="Rating" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Comment" class="control-label"></label>
-                <textarea asp-for="Comment" class="form-control" placeholder="Skriv din recension" rows="4"></textarea>
-                <span asp-validation-for="Comment" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Skicka" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h2 class="text-center mb-4">Skriv en recension</h2>
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-<div>
-    <a asp-action="Index">Tillbaka till recensioner</a>
+                        <!-- Behandling -->
+                        <div class="mb-3">
+                            <label asp-for="TreatmentModelId" class="form-label fw-bold">Välj behandling</label>
+                            <select asp-for="TreatmentModelId" class="form-select" asp-items="ViewBag.TreatmentModelId">
+                                <option value="" disabled selected>Välj behandling</option>
+                            </select>
+                        </div>
+
+                        <!-- Namn -->
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label fw-bold">Ditt namn</label>
+                            <input asp-for="Name" class="form-control" placeholder="Skriv ditt namn" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <!-- Betyg (Bootstrap-stjärnor) -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Betyg</label>
+                            <div class="btn-group" role="group">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <input type="radio" class="btn-check" name="Rating" id="star-@i" value="@i">
+                                    <label class="btn btn-outline-warning" for="star-@i">@i ⭐</label>
+                                }
+                            </div>
+                            <span asp-validation-for="Rating" class="text-danger d-block mt-2"></span>
+                        </div>
+
+                        <!-- Recension -->
+                        <div class="mb-3">
+                            <label asp-for="Comment" class="form-label fw-bold">Recension</label>
+                            <textarea asp-for="Comment" class="form-control" placeholder="Skriv din recension" rows="4"></textarea>
+                            <span asp-validation-for="Comment" class="text-danger"></span>
+                        </div>
+
+                        <!-- Skicka knapp -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">Skicka</button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <a asp-action="Index" class="text-decoration-none">Tillbaka till recensioner</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts {

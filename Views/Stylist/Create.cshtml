@@ -4,36 +4,49 @@
     ViewData["Title"] = "Lägg till personal";
 }
 
-<h2>Lägg till personal</h2>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Bio" class="control-label"></label>
-                <textarea asp-for="Bio" class="form-control"></textarea>
-                <span asp-validation-for="Bio" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ImageFile" class="control-label"></label>
-                <input asp-for="ImageFile" class="form-control" accept="image/*" />
-                <span asp-validation-for="ImageFile" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Lägg till" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h2 class="text-center mb-4">Lägg till personal</h2>
+                    <form asp-action="Create" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-<div>
-    <a asp-action="Index">Tillbaka till personal</a>
+                        <!-- Namn -->
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label fw-bold">Namn</label>
+                            <input asp-for="Name" class="form-control" placeholder="Skriv personalens namn" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <!-- Biografi -->
+                        <div class="mb-3">
+                            <label asp-for="Bio" class="form-label fw-bold">Biografi</label>
+                            <textarea asp-for="Bio" class="form-control" placeholder="Skriv en kort biografi" rows="4"></textarea>
+                            <span asp-validation-for="Bio" class="text-danger"></span>
+                        </div>
+
+                        <!-- Bilduppladdning -->
+                        <div class="mb-3">
+                            <label asp-for="ImageFile" class="form-label fw-bold">Ladda upp bild</label>
+                            <input asp-for="ImageFile" class="form-control" type="file" accept="image/*" />
+                            <span asp-validation-for="ImageFile" class="text-danger"></span>
+                        </div>
+
+                        <!-- Skicka knapp -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">Lägg till</button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <a asp-action="Index" class="text-decoration-none">Tillbaka till personal</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts {
