@@ -28,27 +28,6 @@ namespace LUXLocks_projekt.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Appointment/Details/5
-        [Authorize]
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var appointmentModel = await _context.Appointments
-                .Include(a => a.Stylist)
-                .Include(a => a.Treatment)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (appointmentModel == null)
-            {
-                return NotFound();
-            }
-
-            return View(appointmentModel);
-        }
-
         // GET: Appointment/Create
         public IActionResult Create()
         {

@@ -45,4 +45,7 @@ app.MapControllerRoute(
 app.MapRazorPages()
    .WithStaticAssets();
 
+// lägger till en egen fallback-route för 404 sidor
+app.UseStatusCodePagesWithReExecute("/Home/Error404");
+
 app.Run();

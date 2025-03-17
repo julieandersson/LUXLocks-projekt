@@ -26,24 +26,6 @@ namespace LUXLocks_projekt.Controllers
             return View(await _context.Treatments.ToListAsync());
         }
 
-        // GET: Treatment/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var treatmentModel = await _context.Treatments
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (treatmentModel == null)
-            {
-                return NotFound();
-            }
-
-            return View(treatmentModel);
-        }
-
         // GET: Treatment/Create
         // Lägg till behandling kräver inloggning
         [Authorize]
