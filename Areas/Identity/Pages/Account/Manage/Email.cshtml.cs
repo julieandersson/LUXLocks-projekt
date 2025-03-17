@@ -68,7 +68,7 @@ namespace LUXLocks_projekt.Areas.Identity.Pages.Account.Manage
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required(ErrorMessage = "Du måste ange en ny e-postadress.")]
-            [EmailAddress]
+            [EmailAddress(ErrorMessage = "Ange en giltig e-postadress.")]
             [Display(Name = "Ny e-postadress")]
             public string NewEmail { get; set; }
         }

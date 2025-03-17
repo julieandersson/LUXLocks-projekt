@@ -1,5 +1,5 @@
 ﻿@{
-    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout !=  null)
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout != null)
     {
         Layout = parentLayout.ToString();
     }
@@ -9,17 +9,33 @@
     }
 }
 
-<h1>Hantera ditt konto</h1>
+<div class="container-md mt-5">
+    <h2 class="mb-4 text-center">Hantera ditt konto</h2>
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10"> 
+            <div class="card shadow-lg border-0 mx-auto" style="max-width: 700px;"> <!-- maxbredd på innehållet -->
+                <div class="card-body">
+                    <div class="row">
+                        <!-- sidomeny -->
+                        <div class="col-md-4 mb-4 mb-md-0">
+                            <div class="list-group shadow-sm">
+                                <partial name="_ManageNav" />
+                            </div>
+                        </div>
 
-<div>
-    <h2>Ändra dina kontoinställningar</h2>
-    <hr />
-    <div class="row">
-        <div class="col-md-3">
-            <partial name="_ManageNav" />
-        </div>
-        <div class="col-md-9">
-            @RenderBody()
+                        <!-- huvudinnehåll -->
+                        <div class="col-md-8">
+                            <div class="p-4">
+                                <h4 class="fw-bold">Ändra dina kontoinställningar</h4>
+                                <hr />
+                                <div class="content-wrapper">
+                                    @RenderBody()
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
