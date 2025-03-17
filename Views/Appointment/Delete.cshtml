@@ -20,8 +20,8 @@
                 <p><strong>Kund:</strong> @Html.DisplayFor(model => model.CustomerName)</p>
                 <p><strong>Telefon:</strong> @Html.DisplayFor(model => model.PhoneNumber)</p>
                 <p><strong>Email:</strong> @Html.DisplayFor(model => model.Email)</p>
-                <p><strong>Frisör:</strong> @Html.DisplayFor(model => model.Stylist.Name)</p>
-                <p><strong>Behandling:</strong> @Html.DisplayFor(model => model.Treatment.Name)</p>
+                <p><strong>Frisör:</strong> @(Model.Stylist != null ? Model.Stylist.Name : "Ej vald")</p>
+                <p><strong>Behandling:</strong> @(Model.Treatment != null ? Model.Treatment.Name : "Ej vald")</p>
                 <p><strong>Hårlängd:</strong> @Html.DisplayFor(model => model.HairLength)</p>
                 <p><strong>Hårtyp:</strong> @Html.DisplayFor(model => model.HairType)</p>
                 <p><strong>Övrig info:</strong> @Html.DisplayFor(model => model.AdditionalInfo)</p>

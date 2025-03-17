@@ -51,7 +51,9 @@
 
                     @* Visar de första 100 tecknen i biografin *@
                     <p class="text-muted">
-                        @(item.Bio.Length > maxChars ? item.Bio.Substring(0, maxChars) + "..." : item.Bio)
+                        @(item.Bio != null 
+                            ? (item.Bio.Length > maxChars ? item.Bio.Substring(0, maxChars) + "..." : item.Bio) 
+                            : "Ingen biografi tillgänglig.")
                     </p>
 
                     @* Knapp för "Läs mer" visas alltid *@

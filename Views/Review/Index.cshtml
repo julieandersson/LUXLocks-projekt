@@ -34,7 +34,7 @@
             <div class="col">
                 <div class="card shadow-sm h-100">
                     <div class="card-body">
-                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Treatment.Name)</h5>
+                        <h5 class="card-title">@(item.Treatment != null ? item.Treatment.Name : "Ej vald behandling")</h5>
                         <h6 class="card-subtitle mb-2 text-muted">Av: @Html.DisplayFor(modelItem => item.Name)</h6>
 
                         <p class="mb-1">

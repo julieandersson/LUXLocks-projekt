@@ -16,7 +16,7 @@
             <hr />
 
             <div class="text-start">
-                <p><strong>Behandling:</strong> @Html.DisplayFor(model => model.Treatment.Name)</p>
+                <p><strong>Behandling:</strong> @(Model.Treatment != null ? Model.Treatment.Name : "Ej vald")</p>
                 <p><strong>Kund:</strong> @Html.DisplayFor(model => model.Name)</p>
                 <p><strong>Betyg:</strong> 
                     @for (int i = 1; i <= 5; i++)

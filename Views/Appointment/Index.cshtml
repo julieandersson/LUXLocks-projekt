@@ -23,13 +23,13 @@
             <div class="col">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Treatment.Name)</h5>
+                        <h5 class="card-title">@(item.Treatment != null ? item.Treatment.Name : "Ej vald")</h5>
                         <h6 class="card-subtitle mb-2 text-muted">Tid: @Html.DisplayFor(modelItem => item.AppointmentDate)</h6>
 
                         <p><strong>Kund:</strong> @Html.DisplayFor(modelItem => item.CustomerName)</p>
                         <p><strong>Telefon:</strong> @Html.DisplayFor(modelItem => item.PhoneNumber)</p>
                         <p><strong>E-post:</strong> <a href="mailto:@item.Email">@Html.DisplayFor(modelItem => item.Email)</a></p>
-                        <p><strong>Utövare:</strong> @Html.DisplayFor(modelItem => item.Stylist.Name)</p>
+                        <p><strong>Utövare:</strong> @(item.Stylist != null ? item.Stylist.Name : "Ej vald")</p>
 
                         @* Kollapsbar sektion för extra detaljer *@
                         <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#details-@item.Id">

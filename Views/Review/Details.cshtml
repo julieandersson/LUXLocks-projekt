@@ -13,7 +13,7 @@
                 <dl class="row">
                     <!-- Behandling -->
                     <dt class="col-sm-4 fw-bold">Behandling</dt>
-                    <dd class="col-sm-8">@Html.DisplayFor(model => model.Treatment.Name)</dd>
+                    <dd class="col-sm-8">@(Model.Treatment != null ? Model.Treatment.Name : "Ej vald")</dd>
 
                     <!-- Namn -->
                     <dt class="col-sm-4 fw-bold">Namn</dt>
