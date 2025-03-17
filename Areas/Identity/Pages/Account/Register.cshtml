@@ -4,33 +4,51 @@
     ViewData["Title"] = "Registrera konto";
 }
 
-<h2>@ViewData["Title"]</h2>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">@ViewData["Title"]</h2>
 
-<div class="row">
-    <div class="col-md-4">
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <p class="text-muted fst-italic">
-                Endast anställda på LUX Locks kan registrera ett konto. Du måste ange din jobbmejl som e-postadress vid registrering och bekräfta den genom länken som skickas till din inkorg.
-            </p>
-            <hr />
-            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="namn@exempel.com" />
-                <label asp-for="Input.Email">E-postadress</label>
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg p-4">
+                <p class="text-muted text-center fst-italic">
+                    Endast anställda på LUX Locks kan registrera ett konto. Du måste ange din jobbmejl som e-postadress vid registrering och bekräfta den genom länken som skickas till din inkorg.
+                </p>
+                <hr />
+
+                <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                    <!-- epost -->
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="namn@exempel.com" />
+                        <label asp-for="Input.Email">E-postadress</label>
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+
+                    <!-- Lösenord -->
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Password" type="password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Lösenord" />
+                        <label asp-for="Input.Password">Lösenord</label>
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+
+                    <!-- bekräfta lösenord -->
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.ConfirmPassword" type="password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Bekräfta lösenord" />
+                        <label asp-for="Input.ConfirmPassword">Bekräfta lösenord</label>
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+                    <!-- skapa konto-knapp -->
+                    <button id="registerSubmit" type="submit" class="btn btn-primary w-100">Skapa konto</button>
+
+                    <!-- Tillbaka till login om användaren redan har ett konto-->
+                    <div class="text-center mt-3">
+                        <a asp-page="./Login" class="text-decoration-none">Har du redan ett konto? Logga in här</a>
+                    </div>
+                </form>
             </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="lösenord" />
-                <label asp-for="Input.Password">Lösenord</label>
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="lösenord" />
-                <label asp-for="Input.ConfirmPassword">Bekräfta lösenord</label>
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Skapa konto</button>
-        </form>
+        </div>
     </div>
 </div>
 

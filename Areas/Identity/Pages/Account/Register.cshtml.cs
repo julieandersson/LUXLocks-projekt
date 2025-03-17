@@ -45,60 +45,30 @@ namespace LUXLocks_projekt.Areas.Identity.Pages.Account
             _emailSender = emailSender;
         }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public string ReturnUrl { get; set; }
-
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public class InputModel
         {
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Required]
-            [EmailAddress]
-            [Display(Name = "Email")]
+            [Required(ErrorMessage = "E-postadress är obligatorisk.")]
+            [EmailAddress(ErrorMessage = "Ange en giltig e-postadress.")]
+            [Display(Name = "E-postadress")]
             public string Email { get; set; }
 
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "Lösenord är obligatoriskt.")]
+            [StringLength(100, ErrorMessage = "Lösenordet måste vara minst {2} och max {1} tecken långt.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Lösenord")]
             public string Password { get; set; }
 
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Bekräfta lösenord")]
+            [Compare("Password", ErrorMessage = "Lösenordet och bekräftelselösenordet matchar inte.")]
             public string ConfirmPassword { get; set; }
         }
-
 
         public async Task OnGetAsync(string returnUrl = null)
         {
@@ -108,19 +78,19 @@ namespace LUXLocks_projekt.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/");
+            returnUrl ??= Url.Content("~/Identity/Account/Login");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
-
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation("Användaren skapade ett nytt konto med lösenord.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -131,8 +101,8 @@ namespace LUXLocks_projekt.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    await _emailSender.SendEmailAsync(Input.Email, "Bekräfta din e-post",
+                        $"Bekräfta ditt konto genom att <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>klicka här</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
@@ -140,17 +110,44 @@ namespace LUXLocks_projekt.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        return RedirectToPage("/Account/Login");
                     }
                 }
+
+                // Anpassad felhantering
                 foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    if (error.Code == "PasswordRequiresNonAlphanumeric")
+                    {
+                        ModelState.AddModelError(string.Empty, "Lösenordet måste innehålla minst ett specialtecken (t.ex. @, #, !).");
+                    }
+                    else if (error.Code == "PasswordRequiresUpper")
+                    {
+                        ModelState.AddModelError(string.Empty, "Lösenordet måste innehålla minst en stor bokstav (A-Z).");
+                    }
+                    else if (error.Code == "PasswordRequiresDigit")
+                    {
+                        ModelState.AddModelError(string.Empty, "Lösenordet måste innehålla minst en siffra (0-9).");
+                    }
+                    else if (error.Code == "PasswordTooShort")
+                    {
+                        ModelState.AddModelError(string.Empty, "Lösenordet måste vara minst 6 tecken långt.");
+                    }
+                    else if (error.Code == "DuplicateUserName")
+                    {
+                        ModelState.AddModelError(string.Empty, "Denna e-postadress är redan registrerad.");
+                    }
+                    else if (error.Code == "InvalidEmail")
+                    {
+                        ModelState.AddModelError(string.Empty, "Ange en giltig e-postadress.");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description); // Andra fel
+                    }
                 }
             }
 
-            // If we got this far, something failed, redisplay form
             return Page();
         }
 
@@ -162,9 +159,9 @@ namespace LUXLocks_projekt.Areas.Identity.Pages.Account
             }
             catch
             {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(IdentityUser)}'. " +
-                    $"Ensure that '{nameof(IdentityUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
-                    $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
+                throw new InvalidOperationException($"Kan inte skapa en instans av '{nameof(IdentityUser)}'. " +
+                    $"Se till att '{nameof(IdentityUser)}' inte är en abstrakt klass och har en parameterlös konstruktor, " +
+                    $"eller alternativt, åsidosätt registreringssidan i /Areas/Identity/Pages/Account/Register.cshtml");
             }
         }
 
@@ -172,7 +169,7 @@ namespace LUXLocks_projekt.Areas.Identity.Pages.Account
         {
             if (!_userManager.SupportsUserEmail)
             {
-                throw new NotSupportedException("The default UI requires a user store with email support.");
+                throw new NotSupportedException("Den inbyggda UI:n kräver att användarbutiken har stöd för e-post.");
             }
             return (IUserEmailStore<IdentityUser>)_userStore;
         }

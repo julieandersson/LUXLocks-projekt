@@ -5,42 +5,52 @@
     ViewData["Title"] = "Logga in";
 }
 
-<h2>@ViewData["Title"]</h2>
-<div class="row">
-    <div class="col-md-4">
-        <section>
-            <form id="account" method="post">
-                <p class="text-muted fst-italic">
+<div class="container mt-5">
+    <h2 class="text-center mb-4">@ViewData["Title"]</h2>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg p-4">
+                <p class="text-muted text-center fst-italic">
                     Använd ditt personalkonto för att logga in.
                 </p>
                 <hr />
-                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="namn@exempel.com" />
-                    <label asp-for="Input.Email" class="form-label">E-postadress</label>
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
-                </div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="lösenord" />
-                    <label asp-for="Input.Password" class="form-label">Lösenord</label>
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                </div>
-                <div class="checkbox mb-3">
-                    <label asp-for="Input.RememberMe" class="form-label">
-                    <input class="form-check-input" asp-for="Input.RememberMe" />
-                    Kom ihåg mig?
-                    </label>
-                </div>
-                <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Logga in</button>
-                </div>
-                <div>
-                    <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Har du inget konto? Registera ett här</a>
-                    </p>
-                </div>
-            </form>
-        </section>
+
+                <form id="account" method="post">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                    <!-- epost -->
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="namn@exempel.com" />
+                        <label asp-for="Input.Email">E-postadress</label>
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+
+                    <!-- Lösenord -->
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Password" type="password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Lösenord" />
+                        <label asp-for="Input.Password">Lösenord</label>
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+
+                    <!-- kom ihåg mig-checkinput -->
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" asp-for="Input.RememberMe" />
+                        <label class="form-check-label" asp-for="Input.RememberMe">
+                            Kom ihåg mig?
+                        </label>
+                    </div>
+
+                    <!-- logga in-knapp -->
+                    <button id="login-submit" type="submit" class="btn btn-primary w-100">Logga in</button>
+
+                    <!-- registrering och lösenordsåterställning -->
+                    <div class="text-center mt-3">
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="text-decoration-none">Har du inget konto? Registrera dig här</a>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 
