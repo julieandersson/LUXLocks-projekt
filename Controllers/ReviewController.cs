@@ -68,7 +68,7 @@ namespace LUXLocks_projekt.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TreatmentModelId"] = new SelectList(_context.Treatments, "Id", "Id", reviewModel.TreatmentModelId);
+            ViewData["TreatmentModelId"] = new SelectList(_context.Treatments, "Id", "Name", reviewModel.TreatmentModelId);
             return View(reviewModel);
         }
 

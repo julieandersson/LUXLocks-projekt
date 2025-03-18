@@ -19,6 +19,7 @@
                             <select asp-for="TreatmentModelId" class="form-select" asp-items="ViewBag.TreatmentModelId">
                                 <option value="" disabled selected>Välj behandling</option>
                             </select>
+                            <span asp-validation-for="TreatmentModelId" class="text-danger"></span>
                         </div>
 
                         <!-- Namn -->
