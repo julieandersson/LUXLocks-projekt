@@ -2,4 +2,51 @@
     ViewData["Title"] = "Startsida";
 }
 
-<h2 class="display-4">Startsida</h2>
+<div class="container mt-5 text-center">
+    <!-- start/välkomstsektion -->
+    <h2 class="mb-4">Välkommen till LUXLocks</h2>
+    <p class="text-muted">Din expert på hårvård och styling - skapa din drömfrisyr hos oss!</p>
+
+    <!-- hero-bild -->
+    <div class="mt-4">
+        <img src="images/saloninterior.jpg" alt="Frisörsalong" class="img-fluid shadow-lg" style="object-fit: cover;">
+    </div>
+
+    <!-- knappar för bokning och behandlingar -->
+    <div class="mt-4">
+        <a asp-action="Create" asp-controller="Appointment" class="btn custom-btn btn-md me-3">Boka tid</a>
+        <a asp-action="Index" asp-controller="Treatment" class="btn custom-btn btn-md">Se behandlingar</a>
+    </div>
+</div>
+
+<!-- om oss-sektion -->
+<div class="container mt-5">
+    <div class="row align-items-center">
+        <div class="col-md-6">
+            <h3>Varför välja oss?</h3>
+            <p class="text-muted">
+                LUXLocks är en modern frisörsalong där kvalitet och service står i fokus. 
+                Vårt team av erfarna stylister hjälper dig att hitta den perfekta looken, 
+                oavsett om du vill ha en klassisk klippning, avancerad färgning eller en total makeover.
+            </p>
+            <ul class="list-unstyled">
+                <li><i class="fa-solid fa-heart"></i> Professionella stylister med års erfarenhet</li>
+                <li><i class="fa-solid fa-heart"></i> Användning av premiumprodukter</li>
+                <li><i class="fa-solid fa-heart"></i> Personligt anpassad rådgivning</li>
+                <li><i class="fa-solid fa-heart"></i> Avkopplande miljö och förstklassig service</li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <img src="images/haircut.jpg" alt="Hårklippning" class="img-fluid shadow">
+        </div>
+    </div>
+</div>
+
+
+<!-- kontaktinformation -->
+<div class="container mt-5 text-center">
+    <h3><i class="fa-solid fa-location-dot"></i> Hitta oss</h3>
+    <p class="text-muted">LUXLocks, Storgatan 10, 123 45 Stockholm</p>
+    <p class="text-muted"><i class="fa-solid fa-phone"></i> 08-123 45 67 | <i class="fa-solid fa-envelope"></i> info@luxlocks.se</p>
+    <p class="text-muted"><i class="fa-solid fa-clock"></i> Öppet: Mån-Fre 10:00 - 18:00 | Lör 10:00 - 14:00</p>
+</div>

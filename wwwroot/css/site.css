@@ -10,9 +10,35 @@ header {
 
 body {
   margin-bottom: 60px;
-  background-color: rgb(246, 246, 246);
+  background-color: #f6f6f6;
+  line-height: 2em;
 }
 
+li {
+  line-height: 2.5em;
+}
+
+/* custom-theme för header och footer */
 .custom-theme {
   background-color: #ffdbe1;
+}
+
+/* custom btn för knappar på startsidan */
+.custom-btn {
+  background-color: #ffdbe1;
+  color: black;
+  border: 1px solid #808080;
+}
+
+.custom-btn:hover {
+  background-color: #f3a7b4;
+  color: black;
+  border: 1px solid #808080;
+}
+
+/* custom storlek för btn */ 
+.btn-md {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
 }
