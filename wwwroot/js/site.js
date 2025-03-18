@@ -1,4 +1,12 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
+﻿document.addEventListener("DOMContentLoaded", () => {
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    if (scrollToTopBtn) {
+        scrollToTopBtn.addEventListener('click', function(event) { // vid klick scrollas användaren högst upp på sidan igen
+            event.preventDefault(); // förhindrar standardlänk-beteendet
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // skapar en scroll-effekt upp till sidan
+            });
+        });
+    }
+});

@@ -9,13 +9,16 @@ header {
 }
 
 body {
-  margin-bottom: 60px;
   background-color: #f6f6f6;
   line-height: 2em;
 }
 
 li {
   line-height: 2.5em;
+}
+
+.navbar-nav .nav-item {
+  margin-right: 1px;
 }
 
 /* custom-theme för header och footer */
@@ -44,12 +47,12 @@ li {
 }
 
 .custom-text-header {
-  font-size: 17px;
+  font-size: 16px;
 }
 
 .custom-text,
 .custom-button {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: bold;
 }
 
@@ -63,3 +66,38 @@ li {
 .navbar-nav .nav-link.active {
   font-weight: bold;
 }
+
+footer {
+  background-color: #ffdbe1;
+  text-align: center;
+  padding: 40px;
+}
+
+footer a:hover {
+  text-decoration: underline !important;
+}
+
+footer a {
+  text-align: center !important;
+}
+
+footer p {
+  line-height: 1.4em !important;
+}
+
+.footer-logo {
+  width: 150px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.footer-logo:hover {
+  transform: scale(1.1);
+}
+
+@media (max-width: 767px) {
+  .footer-logo {
+    width: 120px !important;
+  }
+}
+
+
