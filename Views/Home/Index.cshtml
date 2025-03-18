@@ -4,7 +4,7 @@
 
 <div class="container mt-5 text-center">
     <!-- start/välkomstsektion -->
-    <h2 class="mb-4">Välkommen till LUXLocks</h2>
+    <h2 class="mb-4">Välkommen till LUX Locks</h2>
     <p class="text-muted">Din expert på hårvård och styling - skapa din drömfrisyr hos oss!</p>
 
     <!-- hero-bild -->
@@ -50,3 +50,24 @@
     <p class="text-muted"><i class="fa-solid fa-phone"></i> 08-123 45 67 | <i class="fa-solid fa-envelope"></i> info@luxlocks.se</p>
     <p class="text-muted"><i class="fa-solid fa-clock"></i> Öppet: Mån-Fre 10:00 - 18:00 | Lör 10:00 - 14:00</p>
 </div>
+
+<!--visa boknings-popup med bokningsmeddelandet från TempData i controllern-->
+@if (TempData["BookingMessage"] != null)
+{
+    @* sätter bootstrap-toast för att visa popup till användare, i form av en popup-notis*@
+    <div id="booking-toast" class="toast align-items-center text-white bg-success position-fixed bottom-0 end-0 p-3"
+        style="z-index: 1050; display: none;" role="alert" aria-live="assertive" aria-atomic="true"
+        data-bs-autohide="false"> @* Inaktiverar auto-hide så att kund måste klicka ner popup-själv *@
+        <div class="d-flex">
+            <div class="toast-body">
+                @TempData["BookingMessage"] @* visar bokningsmeddelandet från TempData *@
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                aria-label="Close"></button> @* stäng-knapp så att användare kan stänga popupen *@
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script src="~/js/site.js"></script>
+}

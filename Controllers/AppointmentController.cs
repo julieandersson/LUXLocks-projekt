@@ -84,6 +84,10 @@ namespace LUXLocks_projekt.Controllers
             {
                 _context.Add(appointmentModel);
                 await _context.SaveChangesAsync();
+
+                // sparar bokningsmeddelandet i TempData för temporär lagring av data så att det kan hämtas på nästa sida
+                TempData["BookingMessage"] = "Tack för din bokning! En bokningsbekräftelse har skickats till din e-postadress. Hör av dig 24 timmar innan din bokade tid för eventuella avbokningar eller ändringar.";
+                
                 return RedirectToAction("Index", "Home"); // skickar tillbaka användaren till startsidan efter bokning
             }
 
