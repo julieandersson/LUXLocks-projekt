@@ -21,6 +21,12 @@
     <link rel="stylesheet" href="~/LUXLocks_projekt.styles.css" asp-append-version="true" />
 </head>
 <body>
+
+    @{
+        var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+        var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+    }
+
     <header class="custom-theme">
     <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
         <div class="container">
@@ -40,36 +46,52 @@
                     {
                         @* Inloggat läge *@
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="Index">Bokningar</a>
+                            <a class="nav-link custom-text-header @(currentController == "Appointment" ? "active fw-bold" : "")" 
+                            asp-area="" asp-controller="Appointment" asp-action="Index">Bokningar</a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Review" asp-action="Index">Recensioner</a>
+                            <a class="nav-link custom-text-header @(currentController == "Review" ? "active fw-bold" : "")" 
+                            asp-area="" asp-controller="Review" asp-action="Index">Recensioner</a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Stylist" asp-action="Index">Personal</a>
+                            <a class="nav-link custom-text-header @(currentController == "Stylist" ? "active fw-bold" : "")" 
+                            asp-area="" asp-controller="Stylist" asp-action="Index">Personal</a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Treatment" asp-action="Index">Behandlingar</a>
+                            <a class="nav-link custom-text-header @(currentController == "Treatment" ? "active fw-bold" : "")" 
+                            asp-area="" asp-controller="Treatment" asp-action="Index">Behandlingar</a>
                         </li>
                     }
                     else
                     {
                         @* Utloggat läge *@
                         <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Start</a>
+                            <a class="nav-link custom-text-header @(currentController == "Home" ? "active fw-bold" : "")" 
+                            asp-area="" asp-controller="Home" asp-action="Index">Start</a>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a class="nav-link custom-text-header @(currentController == "Appointment" && currentAction == "Create" ? "active fw-bold" : "")" 
+                            asp-area="" asp-controller="Appointment" asp-action="Create">Boka tid</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="Create">Boka tid</a>
+                            <a class="nav-link custom-text-header @(currentController == "Review" ? "active fw-bold" : "")" 
+                            asp-area="" asp-controller="Review" asp-action="Index">Recensioner</a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Review" asp-action="Index">Recensioner</a>
+                            <a class="nav-link custom-text-header @(currentController == "Stylist" ? "active fw-bold" : "")" 
+                            asp-area="" asp-controller="Stylist" asp-action="Index">Våra frisörer</a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Stylist" asp-action="Index">Våra frisörer</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Treatment" asp-action="Index">Våra behandlingar</a>
+                            <a class="nav-link custom-text-header @(currentController == "Treatment" ? "active fw-bold" : "")" 
+                            asp-area="" asp-controller="Treatment" asp-action="Index">Våra behandlingar</a>
                         </li>
                     }
                 </ul>
