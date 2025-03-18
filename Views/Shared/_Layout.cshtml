@@ -47,22 +47,22 @@
                         @* Inloggat läge *@
                         <li class="nav-item">
                             <a class="nav-link custom-text-header @(currentController == "Appointment" ? "active fw-bold" : "")" 
-                            asp-area="" asp-controller="Appointment" asp-action="Index">Bokningar</a>
+                            asp-area="" asp-controller="Appointment" asp-action="Index"><i class="fa-regular fa-calendar"></i> Bokningar</a>
                         </li>
 
                         <li class="nav-item">
                             <a class="nav-link custom-text-header @(currentController == "Review" ? "active fw-bold" : "")" 
-                            asp-area="" asp-controller="Review" asp-action="Index">Recensioner</a>
+                            asp-area="" asp-controller="Review" asp-action="Index"><i class="fa-regular fa-face-smile"></i> Recensioner</a>
                         </li>
 
                         <li class="nav-item">
                             <a class="nav-link custom-text-header @(currentController == "Stylist" ? "active fw-bold" : "")" 
-                            asp-area="" asp-controller="Stylist" asp-action="Index">Personal</a>
+                            asp-area="" asp-controller="Stylist" asp-action="Index"><i class="fa-solid fa-scissors"></i> Personal</a>
                         </li>
 
                         <li class="nav-item">
                             <a class="nav-link custom-text-header @(currentController == "Treatment" ? "active fw-bold" : "")" 
-                            asp-area="" asp-controller="Treatment" asp-action="Index">Behandlingar</a>
+                            asp-area="" asp-controller="Treatment" asp-action="Index"><i class="fa-solid fa-spa"></i> Behandlingar</a>
                         </li>
                     }
                     else
@@ -108,7 +108,7 @@
         </main>
     </div>
 
-    <footer>
+    <footer class="mt-4">
     <div class="container">
         <div class="row align-items-center text-center">
 

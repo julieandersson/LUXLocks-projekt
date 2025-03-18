@@ -21,9 +21,24 @@ namespace LUXLocks_projekt.Controllers
         }
 
         // GET: Treatment
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string priceRange)
         {
-            return View(await _context.Treatments.ToListAsync());
+            var treatments = _context.Treatments.AsQueryable();
+
+            // sparar det valda prisintervallet i ViewBag för att behålla valet i vyn
+            ViewBag.CurrentPriceRange = priceRange;
+
+            // om användaren har valt ett prisintervall, filtrera resultaten
+            if (!string.IsNullOrEmpty(priceRange))
+            {
+                var priceBounds = priceRange.Split("-");
+                if (priceBounds.Length == 2 && int.TryParse(priceBounds[0], out int minPrice) && int.TryParse(priceBounds[1], out int maxPrice))
+                {
+                    treatments = treatments.Where(t => t.Price >= minPrice && t.Price <= maxPrice); // filtrerar listan med behandlingar baserat på valt prisintervall
+                }
+            }
+
+            return View(await treatments.ToListAsync());
         }
 
         // GET: Treatment/Create

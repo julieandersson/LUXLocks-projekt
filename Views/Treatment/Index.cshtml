@@ -34,10 +34,35 @@
         <p><a asp-action="Create" class="btn btn-primary">Lägg till ny behandling</a></p>
     }
 
+    <!-- filtrering för pris, visar endast behandlingar inom valt prisintervall -->
+    <form id="filterForm" asp-action="Index" method="get" class="mb-4 mt-4">
+    <div class="row mb-3">
+        <div class="col-md-3">
+            <label for="priceRange">Filtrera behandling efter pris:</label>
+            <select name="priceRange" id="priceRange" class="form-select">
+                <option value="">Alla prisklasser</option>
+                <option value="500-1000" selected="@(ViewBag.CurrentPriceRange == "500-1000" ? "selected" : null)">500 - 1000 kr</option>
+                <option value="1000-1500" selected="@(ViewBag.CurrentPriceRange == "1000-1500" ? "selected" : null)">1000 - 1500 kr</option>
+                <option value="1500-2000" selected="@(ViewBag.CurrentPriceRange == "1500-2000" ? "selected" : null)">1500 - 2000 kr</option>
+                <option value="2000-3000" selected="@(ViewBag.CurrentPriceRange == "2000-3000" ? "selected" : null)">2000 - 3000 kr</option>
+            </select>
+        </div>
+
+            <!-- Sök och återställs-knapp -->
+            <div class="col-md-3 d-flex align-items-end gap-2 mt-2">
+                <!--visar behandlingar inom det valda prisintervallet-->
+                <button type="submit" class="btn btn-primary px-3">Filtrera</button>
+                <!--återställer filtrering och visar alla behandlingar igen-->
+                <a href="@Url.Action("Index")" class="btn btn-secondary px-3">Återställ</a>
+            </div>
+        </div>
+    </form>
+
     <!-- Meddelande som visas när tabellen blir scrollbar -->
     <div id="scroll-message" class="text-center py-2 d-none">
         Scrolla tabellen sidledes för att se all information.
     </div>
+
 
     <div id="table-container" class="table-responsive" style="overflow-x: auto; max-width: 100%;">
         <table class="table align-middle bg-white" style="min-width: 800px;">
