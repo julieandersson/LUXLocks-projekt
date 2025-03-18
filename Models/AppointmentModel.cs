@@ -17,13 +17,13 @@ namespace LUXLocks_projekt.Models {
 
         // Telefonnummer för den som bokar
         [Required(ErrorMessage = "Du måste ange ett giltigt telefonnummer.")]
-        [Phone]
+        [Phone(ErrorMessage = "Telefonnumret är inte giltigt. Använd formatet 070-1234567.")]
         [Display(Name = "Telefonnummer:")]
         public string? PhoneNumber { get; set; }
 
         // email för den som bokar
         [Required(ErrorMessage = "Du måste ange en korrekt epostadress.")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "E-postadressen måste vara i ett giltigt format, t.ex. namn@domän.se.")]
         [Display(Name = "Epostadress:")]
         public string? Email { get; set; }
 
