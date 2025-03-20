@@ -3,6 +3,9 @@
 ## Uppgiftsbeskrivning
 Denna uppgift avser projektuppgiften i kursen DT191G och innefattar en databasdriven webbapplikation, skapad med ASP.NET Core, Entity Framework och Identity. Webbplatsen är skapad för en fiktiv frisörsalong som heter "LUX Locks". På webbplatsen kan kunder boka tid, läsa och skriva recensioner samt se vilka frisörer och behandlingar som erbjuds. Administrativ personal har möjlighet att hantera bokningar, tjänster, personalinformation och konto.
 
+## Demonstration av webbplats
+Applikationen är inte publicerad, men det finns en videodemonstration som visar hur applikationen fungerar. Se [här](https://vimeo.com/1067817969?share=copy)
+
 ## Funktionalitet
 För kunder:
 - Boka tid
