@@ -63,7 +63,6 @@
         Scrolla tabellen sidledes för att se all information.
     </div>
 
-
     <div id="table-container" class="table-responsive" style="overflow-x: auto; max-width: 100%;">
         <table class="table align-middle bg-white" style="min-width: 800px;">
             <thead class="table-white">
@@ -71,10 +70,7 @@
                     <th class="text-center fs-5" style="width: 25%;">Namn</th>
                     <th class="fs-5" style="width: 40%; max-width: 300px;">Beskrivning</th>
                     <th class="text-center fs-5" style="width: 15%;">Pris</th>
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        <th class="text-center fs-5" style="width: 20%;">Åtgärder</th> 
-                    }
+                    <th class="text-center fs-5" style="width: 20%;">@((SignInManager.IsSignedIn(User)) ? "Åtgärder" : "Boka")</th> 
                 </tr>
             </thead>
             <tbody>
